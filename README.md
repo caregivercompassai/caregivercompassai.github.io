@@ -1,2 +1,2 @@
 # caregivercompassai.github.io
-"AI-powered caregiving platform for Asian families — navigating aging, dementia and longevity with compassion"
+"CaregiverCompassAI — Supporting the sandwich generation through Asia's two greatest challenges: caring for aging parents and nurturing the next generation."

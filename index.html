@@ -22,11 +22,7 @@ img{display:block;max-width:100%}
 
 /* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 1px 8px rgba(184,115,42,0.05);gap:12px;flex-wrap:wrap}
-.logo{display:flex;align-items:flex-start;gap:10px}
-.logo svg{width:52px;height:62px;flex-shrink:0}
-.logo-words .name{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.15;color:var(--text)}
-.logo-words .name span{color:var(--gold)}
-.logo-words .tag{font-size:9.5px;color:var(--gold);letter-spacing:0.9px;margin-top:2px}
+.logo{display:flex;align-items:center}
 .navlinks{display:flex;gap:26px;list-style:none;align-items:center}
 .navlinks a{font-size:11.5px;font-weight:500;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;transition:color .2s}
 .navlinks a.on{color:var(--gold);border-bottom:1.5px solid var(--gold);padding-bottom:2px}
@@ -37,7 +33,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5
 .cta:hover{opacity:.88}
 
 /* HERO */
-.hero{display:grid;grid-template-columns:1fr 1.15fr;min-height:580px;background:#fff;position:relative;overflow:hidden}
+.hero{display:grid;grid-template-columns:1fr 1.15fr;height:580px;max-height:580px;background:#fff;position:relative;overflow:hidden}
 .hero-l{padding:52px 48px 90px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
 .tiny-heart{color:var(--gold);font-size:13px;margin-bottom:6px;opacity:.65}
 .eyebrow{font-size:12.5px;color:var(--gold);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:9px}
@@ -50,8 +46,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5
 .btn-gold:hover{opacity:.88;transform:translateY(-1px)}
 .btn-white{background:#fff;color:var(--text);border:1.5px solid var(--text);padding:12px 24px;border-radius:28px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .2s}
 .btn-white:hover{background:var(--text);color:#fff}
-.hero-r{position:relative;overflow:hidden}
-.hero-r img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.hero-r{position:relative;overflow:hidden;max-height:580px}
+.hero-r img{width:100%;height:100%;object-fit:cover;object-position:center 20%;max-height:580px}
 .wave-wrap{position:absolute;bottom:0;left:0;right:0;z-index:3}
 .wave-gold{height:3px;background:linear-gradient(90deg,transparent 0%,#E0A83A 30%,#C98B2D 50%,#E0A83A 70%,transparent 100%)}
 .wave-white{height:48px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48'%3E%3Cpath fill='%23ffffff' d='M0,32 C400,56 1040,8 1440,32 L1440,48 L0,48Z'/%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
@@ -71,11 +67,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5
 /* WELCOME */
 .welcome{display:grid;grid-template-columns:1fr 1fr 1fr 0.72fr;background:#fff;border-bottom:1px solid var(--border)}
 .wl{padding:46px 38px;border-right:1px solid var(--border)}
-.wm{overflow:hidden;min-height:300px}
-.wm img{width:100%;height:100%;object-fit:cover}
+.wm{overflow:hidden;height:280px;max-height:280px}
+.wm img{width:100%;height:280px;object-fit:cover}
 .wr{padding:46px 34px;border-left:1px solid var(--border);border-right:1px solid var(--border)}
-.wfr{overflow:hidden}
-.wfr img{width:100%;height:100%;object-fit:cover}
+.wfr{overflow:hidden;max-height:280px}
+.wfr img{width:100%;height:280px;object-fit:cover}
 .slabel{font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:11px}
 .wl h2{font-family:var(--serif);font-size:25px;font-weight:500;line-height:1.35;margin-bottom:11px;color:var(--text)}
 .w-heart{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
@@ -93,11 +89,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:14px 5
 .cards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(184,115,42,0.09)}
-.card-top{padding:18px 14px 10px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.card-top{padding:16px 12px 8px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .card-icon{font-size:24px;color:var(--gold);margin-bottom:10px}
 .card-top h4{font-family:var(--serif);font-size:15.5px;font-weight:500;margin-bottom:7px;color:var(--text);line-height:1.3}
 .card-top p{font-size:10.5px;color:var(--text3);line-height:1.6;margin-bottom:12px}
-.card-img{height:128px;overflow:hidden}
+.card-img{height:100px;overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:cover}
 
 /* NEWSLETTER */
@@ -148,23 +144,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- NAV -->
 <nav>
   <div class="logo">
-    <svg viewBox="0 0 80 96" fill="none">
-      <path d="M54 70C54 70 27 52 22 35C17 18 29 8 38 10C44 11 54 21 54 21C54 21 64 11 70 10C79 8 91 18 86 35C81 52 54 70 54 70Z" fill="none" stroke="#C98B2D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M60 5L61.5 10L66 11L61.5 12L60 17L58.5 12L54 11L58.5 10Z" fill="#C98B2D" opacity="0.75"/>
-      <path d="M34 87C33 71 32 53 33 35C34 19 35 9 36 4" fill="none" stroke="#C98B2D" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M33 74C22 67 18 55 23 43" fill="#C98B2D" opacity="0.84"/>
-      <path d="M33 56C22 49 18 37 24 27" fill="#C98B2D" opacity="0.78"/>
-      <path d="M33 39C23 32 20 21 26 12" fill="#C98B2D" opacity="0.70"/>
-      <path d="M34 74C45 67 49 55 44 43" fill="#C98B2D" opacity="0.78"/>
-      <path d="M34 56C45 49 48 37 43 27" fill="#C98B2D" opacity="0.70"/>
-      <ellipse cx="36" cy="3" rx="5" ry="9" fill="#C98B2D" opacity="0.92" transform="rotate(-6,36,3)"/>
-      <ellipse cx="30" cy="11" rx="3.5" ry="6.5" fill="#C98B2D" opacity="0.76" transform="rotate(-16,30,11)"/>
-      <ellipse cx="42" cy="9" rx="3.5" ry="6.5" fill="#C98B2D" opacity="0.76" transform="rotate(8,42,9)"/>
-    </svg>
-    <div class="logo-words">
-      <div class="name">Caregiver<br>Compass <span>AI</span></div>
-      <div class="tag">Regenerate. Rejuvenate. Reconnect.</div>
-    </div>
+    <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:72px;width:auto;object-fit:contain">
   </div>
   <ul class="navlinks">
     <li><a href="#" class="on">HOME</a></li>
@@ -286,12 +266,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <section class="nl" id="newsletter">
   <div class="nl-l">
     <div class="nl-logo">
-      <svg viewBox="0 0 80 96" fill="none">
-        <path d="M54 70C54 70 27 52 22 35C17 18 29 8 38 10C44 11 54 21 54 21C54 21 64 11 70 10C79 8 91 18 86 35C81 52 54 70 54 70Z" fill="none" stroke="#C98B2D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M34 87C33 71 32 53 33 35C34 19 35 9 36 4" fill="none" stroke="#C98B2D" stroke-width="2.8" stroke-linecap="round"/>
-        <path d="M33 74C22 67 18 55 23 43" fill="#C98B2D" opacity="0.84"/>
-        <ellipse cx="36" cy="3" rx="5" ry="9" fill="#C98B2D" opacity="0.92" transform="rotate(-6,36,3)"/>
-      </svg>
+      <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:60px;width:auto;object-fit:contain">
     </div>
     <h3>Let's walk this journey together.</h3>
     <p>Get weekly caregiving wisdom, longevity tips, and exclusive offers straight to your inbox — from my heart to yours.</p>
@@ -319,15 +294,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- FOOTER -->
 <footer>
   <div class="fl">
-    <svg viewBox="0 0 80 96" fill="none">
-      <path d="M54 70C54 70 27 52 22 35C17 18 29 8 38 10C44 11 54 21 54 21C54 21 64 11 70 10C79 8 91 18 86 35C81 52 54 70 54 70Z" fill="none" stroke="#C98B2D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M34 87C33 71 32 53 33 35" fill="none" stroke="#C98B2D" stroke-width="2.8" stroke-linecap="round"/>
-      <ellipse cx="36" cy="3" rx="5" ry="9" fill="#C98B2D" opacity="0.9" transform="rotate(-6,36,3)"/>
-    </svg>
-    <div>
-      <div class="fl-name">Caregiver Compass <span>AI</span></div>
-      <div class="fl-tag">Regenerate. Rejuvenate. Reconnect.</div>
-    </div>
+    <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:52px;width:auto;object-fit:contain">
   </div>
   <nav class="fnav">
     <a href="#">HOME</a><a href="#">ABOUT</a><a href="#">JOURNEY</a>

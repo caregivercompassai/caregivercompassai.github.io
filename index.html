@@ -9,31 +9,19 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#B8732A;
-  --gold2:#C98B2D;
-  --gold3:#E8C585;
-  --cream:#FFFDF8;
-  --cream2:#FAF6F0;
-  --cream3:#F5EAD8;
-  --text:#1A1410;
-  --text2:#4A3F35;
-  --text3:#8A7A6A;
+  --gold:#B8732A;--gold2:#C98B2D;--gold3:#E8C585;
+  --cream:#FFFDF8;--cream2:#FAF6F0;--cream3:#F5EAD8;
+  --text:#1A1410;--text2:#4A3F35;--text3:#8A7A6A;
   --border:#EDE0CC;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Inter',Arial,sans-serif;
 }
-body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.6;margin:0}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.6}
 a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
 
 /* NAV */
-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 52px;background:#fff;
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:200;
-  box-shadow:0 1px 8px rgba(184,115,42,0.05);
-  gap:12px;
-}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 1px 8px rgba(184,115,42,0.05);gap:12px;flex-wrap:wrap}
 .logo{display:flex;align-items:flex-start;gap:10px}
 .logo svg{width:52px;height:62px;flex-shrink:0}
 .logo-words .name{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.15;color:var(--text)}
@@ -49,8 +37,8 @@ nav{
 .cta:hover{opacity:.88}
 
 /* HERO */
-.hero{display:grid;grid-template-columns:1fr 1.15fr;min-height:560px;background:#fff;position:relative;overflow:hidden}
-.hero-l{padding:52px 48px 80px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.hero{display:grid;grid-template-columns:1fr 1.15fr;min-height:580px;background:#fff;position:relative;overflow:hidden}
+.hero-l{padding:52px 48px 90px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
 .tiny-heart{color:var(--gold);font-size:13px;margin-bottom:6px;opacity:.65}
 .eyebrow{font-size:12.5px;color:var(--gold);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:9px}
 .eyebrow::before,.eyebrow::after{content:'';height:1px;width:26px;background:var(--gold);display:inline-block}
@@ -64,16 +52,14 @@ nav{
 .btn-white:hover{background:var(--text);color:#fff}
 .hero-r{position:relative;overflow:hidden}
 .hero-r img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
-/* gold wave at bottom of hero */
 .wave-wrap{position:absolute;bottom:0;left:0;right:0;z-index:3}
-.wave-gold{height:3px;background:linear-gradient(90deg,transparent 0%,#E0A83A 30%,#C98B2D 50%,#E0A83A 70%,transparent 100%);margin-bottom:0}
+.wave-gold{height:3px;background:linear-gradient(90deg,transparent 0%,#E0A83A 30%,#C98B2D 50%,#E0A83A 70%,transparent 100%)}
 .wave-white{height:48px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48'%3E%3Cpath fill='%23ffffff' d='M0,32 C400,56 1040,8 1440,32 L1440,48 L0,48Z'/%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
 
 /* PILLARS */
 .pillars{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.pillars-inner{display:grid;grid-template-columns:repeat(6,1fr) 190px;padding:0 40px}
+.pillars-inner{display:grid;grid-template-columns:repeat(5,1fr) 190px;padding:0 40px}
 .pil{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 10px;border-right:1px solid var(--border)}
-.pil:last-of-type{border-right:none}
 .pil-icon{font-size:24px;color:var(--gold);margin-bottom:10px}
 .pil h3{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;color:var(--text)}
 .pil p{font-size:10.5px;color:var(--text3);line-height:1.5}
@@ -92,11 +78,10 @@ nav{
 .wfr img{width:100%;height:100%;object-fit:cover}
 .slabel{font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:11px}
 .wl h2{font-family:var(--serif);font-size:25px;font-weight:500;line-height:1.35;margin-bottom:11px;color:var(--text)}
-.wl .w-heart{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
+.w-heart{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
 .wl p{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:20px}
 .learn{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:9px 18px;border-radius:28px;font-size:10.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:var(--sans)}
 .wr h3{font-family:var(--serif);font-size:27px;font-weight:400;line-height:1.3;margin-bottom:10px;color:var(--text)}
-.wr h3 em{font-style:normal;display:block}
 .w-heart2{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
 .gold-bar{width:26px;height:2px;background:var(--gold);margin:10px 0 13px}
 .wr p{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:14px}
@@ -105,7 +90,7 @@ nav{
 
 /* CARDS */
 .cards{padding:46px 40px 56px;background:var(--cream2);border-bottom:1px solid var(--border)}
-.cards-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.cards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
 .card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s}
 .card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(184,115,42,0.09)}
 .card-top{padding:18px 14px 10px;display:flex;flex-direction:column;align-items:center;text-align:center}
@@ -117,7 +102,6 @@ nav{
 
 /* NEWSLETTER */
 .nl{padding:46px 52px;background:#fff;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:36px}
-.nl-l{display:flex;flex-direction:column;gap:0}
 .nl-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .nl-logo svg{width:40px;height:48px}
 .nl-l h3{font-family:var(--serif);font-size:25px;font-weight:400;margin-bottom:7px;color:var(--text)}
@@ -128,13 +112,12 @@ nav{
 .nl-btn{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:10px 18px;border-radius:22px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;font-family:var(--sans)}
 .privacy{font-size:9.5px;color:var(--text3);display:flex;align-items:center;gap:4px}
 .nl-r{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-.nl-yt{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.yt-btn{background:#FF0000;color:#fff;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.yt-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.yt-icon{background:#FF0000;color:#fff;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .yt-text{font-size:12px;color:var(--text2);font-weight:500}
-.nl-soon{font-size:11px;color:var(--text3);font-weight:500}
-.nl-xhs{display:flex;align-items:center;gap:6px;margin-top:2px}
-.xhs-btn{background:#FF2442;color:#fff;padding:5px 10px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:-.3px}
-.xhs-text{font-size:11.5px;color:var(--text2)}
+.xhs-row{display:flex;align-items:center;gap:6px;margin-top:2px}
+.xhs-badge{background:#FF2442;color:#fff;padding:5px 10px;border-radius:6px;font-size:9px;font-weight:700}
+.xhs-text{font-size:11px;color:var(--text3)}
 
 /* FOOTER */
 footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
@@ -150,17 +133,13 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 .fcopy i{color:var(--gold)}
 
 @media(max-width:1024px){
-  nav{padding:12px 24px}
-  .hero{grid-template-columns:1fr}
-  .hero-r{height:300px}
-  .hero-l{padding:36px 24px 56px}
-  .hero-l h1{font-size:36px}
-  .pillars-inner{grid-template-columns:repeat(3,1fr);padding:0 20px}
-  .welcome{grid-template-columns:1fr 1fr}
-  .wfr{display:none}
+  nav{padding:12px 20px}
+  .hero{grid-template-columns:1fr}.hero-r{height:280px}.hero-l{padding:36px 20px 56px}.hero-l h1{font-size:36px}
+  .pillars-inner{grid-template-columns:repeat(3,1fr);padding:0 16px}
+  .welcome{grid-template-columns:1fr 1fr}.wfr{display:none}
   .cards-grid{grid-template-columns:repeat(2,1fr)}
-  .nl{grid-template-columns:1fr;padding:36px 24px}
-  footer{flex-direction:column;text-align:center;padding:18px 20px}
+  .nl{grid-template-columns:1fr;padding:32px 20px}
+  footer{flex-direction:column;text-align:center;padding:16px 20px}
 }
 </style>
 </head>
@@ -169,7 +148,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- NAV -->
 <nav>
   <div class="logo">
-    <svg viewBox="0 0 80 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 96" fill="none">
       <path d="M54 70C54 70 27 52 22 35C17 18 29 8 38 10C44 11 54 21 54 21C54 21 64 11 70 10C79 8 91 18 86 35C81 52 54 70 54 70Z" fill="none" stroke="#C98B2D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M60 5L61.5 10L66 11L61.5 12L60 17L58.5 12L54 11L58.5 10Z" fill="#C98B2D" opacity="0.75"/>
       <path d="M34 87C33 71 32 53 33 35C34 19 35 9 36 4" fill="none" stroke="#C98B2D" stroke-width="2.8" stroke-linecap="round"/>
@@ -214,7 +193,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
     </div>
   </div>
   <div class="hero-r">
-    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&auto=format&fit=crop&q=85" alt="Caregiver with elderly mother">
+    <img src="caregiver-hero.png" alt="Asian caregiver with elderly mother on sofa">
     <div class="wave-wrap">
       <div class="wave-gold"></div>
       <div class="wave-white"></div>
@@ -225,30 +204,11 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- PILLARS -->
 <section class="pillars">
   <div class="pillars-inner">
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-regular fa-heart"></i></div>
-      <h3>Compassion</h3><p>We lead with heart</p>
-    </div>
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-solid fa-brain"></i></div>
-      <h3>Knowledge</h3><p>We empower with wisdom</p>
-    </div>
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-solid fa-people-group"></i></div>
-      <h3>Community</h3><p>We grow together</p>
-    </div>
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-solid fa-seedling"></i></div>
-      <h3>Longevity</h3><p>We nurture health for the future</p>
-    </div>
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-solid fa-piggy-bank"></i></div>
-      <h3>Financial Wellness</h3><p>We bring clarity and confidence to your financial journey</p>
-    </div>
-    <div class="pil">
-      <div class="pil-icon"><i class="fa-solid fa-ribbon"></i></div>
-      <h3>Fertility & Regenerative Health</h3><p>We support your journey to parenthood</p>
-    </div>
+    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-hands-holding-heart"></i></div><h3>Sharing & Caring</h3><p>We uplift and support caregivers through compassion and connection.</p></div>
+    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-seedling"></i></div><h3>Longevity</h3><p>We nurture health and vitality for a longer life.</p></div>
+    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-ribbon"></i></div><h3>Fertility</h3><p>We support your potential to create and renew life with balance.</p></div>
+    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-spa"></i></div><h3>Rejuvenative Therapy</h3><p>We help restore and revitalize body, mind, and spirit.</p></div>
+    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-piggy-bank"></i></div><h3>Financial Wellness</h3><p>We bring clarity and confidence to your financial journey.</p></div>
     <div class="pil-quote">
       <p>Inspired by Asian wisdom.<br>Rooted in care.<br>Driven by purpose.</p>
       <div class="hr-heart"><i class="fa-solid fa-heart" style="font-size:9px"></i></div>
@@ -259,25 +219,21 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- WELCOME -->
 <section class="welcome">
   <div class="wl">
-    <span class="slabel">Welcome to Caregiver Compass</span>
+    <span class="slabel">Welcome to Caregiver Compass AI</span>
     <h2>Where caregiving meets compassion, culture, and a brighter tomorrow.</h2>
     <div class="w-heart"><i class="fa-regular fa-heart"></i></div>
     <p>Born from personal experience and a deep respect for Asian values, Caregiver Compass AI is a space for caregivers, families, and loved ones to learn, share, and support one another.</p>
     <button class="learn">LEARN MORE ABOUT OUR JOURNEY <i class="fa-solid fa-arrow-right"></i></button>
   </div>
-  <div class="wm">
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop&q=85" alt="Tea lifestyle warm interior">
-  </div>
+  <div class="wm"><img src="tea.png" alt="Warm tea lifestyle cozy interior"></div>
   <div class="wr">
-    <h3>Nourish the body.<br><em>Renew the mind.</em><br>Elevate life.</h3>
+    <h3>Nourish the body.<br>Renew the mind.<br><span style="color:var(--gold)">Elevate life.</span></h3>
     <div class="w-heart2"><i class="fa-regular fa-heart"></i></div>
     <div class="gold-bar"></div>
     <p>Explore brain health, longevity, and everyday practices that help you and your loved ones live better, longer.</p>
     <a href="#" class="explore">EXPLORE RESOURCES <i class="fa-solid fa-arrow-right"></i></a>
   </div>
-  <div class="wfr">
-    <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=400&auto=format&fit=crop&q=85" alt="Vase plant minimal">
-  </div>
+  <div class="wfr"><img src="vase.png" alt="White vase with green plant on books"></div>
 </section>
 
 <!-- CARDS -->
@@ -285,11 +241,11 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
   <div class="cards-grid">
     <div class="card">
       <div class="card-top">
-        <div class="card-icon"><i class="fa-regular fa-heart"></i></div>
+        <div class="card-icon"><i class="fa-solid fa-hands-holding-heart"></i></div>
         <h4>Caregiver Support</h4>
         <p>Practical tips, emotional support, and real-life guidance.</p>
       </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&auto=format&fit=crop&q=80" alt="Caregiver support handshake"></div>
+      <div class="card-img"><img src="handshake.png" alt="Caregiver support handshake warm golden"></div>
     </div>
     <div class="card">
       <div class="card-top">
@@ -297,39 +253,31 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
         <h4>Longevity & Brain Health</h4>
         <p>Science-backed insights and habits for a healthier brain and longer life.</p>
       </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&auto=format&fit=crop&q=80" alt="Brain health longevity"></div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
-        <h4>Regenerative & Rejuvenative</h4>
-        <p>Nutrients, approaches, mindfulness, and lifestyle practices to help you renew, restore, and revitalize.</p>
-      </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&auto=format&fit=crop&q=80" alt="Regenerative wellness"></div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-icon"><i class="fa-solid fa-piggy-bank"></i></div>
-        <h4>Financial Stress Management</h4>
-        <p>Guidance and tools to ease financial worries and plan with confidence.</p>
-      </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=400&auto=format&fit=crop&q=80" alt="Financial wellness piggy bank"></div>
-    </div>
-    <div class="card">
-      <div class="card-top">
-        <div class="card-icon"><i class="fa-solid fa-people-group"></i></div>
-        <h4>Community & Belonging</h4>
-        <p>A safe space to connect, share, and grow together.</p>
-      </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&auto=format&fit=crop&q=80" alt="Community belonging Asian family"></div>
+      <div class="card-img"><img src="brain.png" alt="Glowing brain health longevity"></div>
     </div>
     <div class="card">
       <div class="card-top">
         <div class="card-icon"><i class="fa-solid fa-ribbon"></i></div>
-        <h4>Fertility & Regenerative Health</h4>
-        <p>Supporting the sandwich generation through stress, hormonal health, and the journey to parenthood.</p>
+        <h4>Fertility & Regenerative Wellness</h4>
+        <p>Nurture your body and hormonal balance. Support fertility and regenerative wellness at every stage.</p>
       </div>
-      <div class="card-img"><img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=400&auto=format&fit=crop&q=80" alt="Fertility regenerative health"></div>
+      <div class="card-img"><img src="fertility.png" alt="Fertility regenerative wellness heart hands"></div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon"><i class="fa-solid fa-spa"></i></div>
+        <h4>Rejuvenative Therapy</h4>
+        <p>Nutrients, approaches, mindfulness, and lifestyle practices that help you renew, restore, and revitalize.</p>
+      </div>
+      <div class="card-img"><img src="wellness.png" alt="Wellness rejuvenative therapy oils towel"></div>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <div class="card-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+        <h4>Financial Wellness</h4>
+        <p>Guidance and tools to ease financial worries and plan with confidence.</p>
+      </div>
+      <div class="card-img"><img src="financial.png" alt="Financial wellness piggy bank calculator"></div>
     </div>
   </div>
 </section>
@@ -342,9 +290,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
         <path d="M54 70C54 70 27 52 22 35C17 18 29 8 38 10C44 11 54 21 54 21C54 21 64 11 70 10C79 8 91 18 86 35C81 52 54 70 54 70Z" fill="none" stroke="#C98B2D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M34 87C33 71 32 53 33 35C34 19 35 9 36 4" fill="none" stroke="#C98B2D" stroke-width="2.8" stroke-linecap="round"/>
         <path d="M33 74C22 67 18 55 23 43" fill="#C98B2D" opacity="0.84"/>
-        <path d="M33 56C22 49 18 37 24 27" fill="#C98B2D" opacity="0.78"/>
         <ellipse cx="36" cy="3" rx="5" ry="9" fill="#C98B2D" opacity="0.92" transform="rotate(-6,36,3)"/>
-        <ellipse cx="30" cy="11" rx="3.5" ry="6.5" fill="#C98B2D" opacity="0.76" transform="rotate(-16,30,11)"/>
       </svg>
     </div>
     <h3>Let's walk this journey together.</h3>
@@ -358,13 +304,13 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
     <div class="privacy"><i class="fa-solid fa-lock" style="font-size:10px;color:var(--gold)"></i> No spam, ever. Unsubscribe anytime.</div>
   </div>
   <div class="nl-r">
-    <div class="nl-yt">
-      <a href="#" class="yt-btn"><i class="fa-brands fa-youtube"></i></a>
+    <div class="yt-row">
+      <a href="#" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
       <div class="yt-text">Follow us on <strong>YouTube</strong></div>
     </div>
-    <div class="nl-soon">Coming soon on</div>
-    <div class="nl-xhs">
-      <div class="xhs-btn">小红书</div>
+    <div class="xhs-text" style="font-size:11px;color:var(--text3)">Coming soon on</div>
+    <div class="xhs-row">
+      <div class="xhs-badge">小红书</div>
       <div class="xhs-text"><strong>XHS</strong></div>
     </div>
   </div>

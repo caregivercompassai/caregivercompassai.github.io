@@ -3,139 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CaregiverCompassAI — Guiding Caregivers. Honoring Love.</title>
+<title>CaregiverCompassAI — Caregiving, Fertility, Longevity & Medical Tourism for Asian Families</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#B8732A;--gold2:#C98B2D;--gold3:#E8C585;
+  --gold:#B8732A;--gold2:#C98B2D;--gold3:#E0A83A;
   --cream:#FFFDF8;--cream2:#FAF6F0;--cream3:#F5EAD8;
   --text:#1A1410;--text2:#4A3F35;--text3:#8A7A6A;
   --border:#EDE0CC;
   --serif:'Cormorant Garamond',Georgia,serif;
   --sans:'Inter',Arial,sans-serif;
 }
-body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.6}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);line-height:1.6;margin:0}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
+button{cursor:pointer;font-family:var(--sans)}
 
-/* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 52px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 1px 8px rgba(184,115,42,0.05);gap:12px;flex-wrap:wrap}
-.logo{display:flex;align-items:center}
-.navlinks{display:flex;gap:26px;list-style:none;align-items:center}
-.navlinks a{font-size:11.5px;font-weight:500;color:var(--text2);letter-spacing:0.06em;text-transform:uppercase;transition:color .2s}
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 52px;background:#fff;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 8px rgba(184,115,42,0.06);
+  gap:12px;flex-wrap:wrap;
+}
+.logo img{height:68px;width:auto;object-fit:contain}
+.navlinks{display:flex;gap:26px;list-style:none}
+.navlinks a{font-size:11.5px;font-weight:500;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
 .navlinks a.on{color:var(--gold);border-bottom:1.5px solid var(--gold);padding-bottom:2px}
 .navlinks a:hover{color:var(--gold)}
 .nav-r{display:flex;align-items:center;gap:10px}
-.lang{font-size:10.5px;border:1px solid var(--border);padding:5px 11px;border-radius:20px;color:var(--text3);cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
-.cta{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:10px 18px;border-radius:28px;font-size:11px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(184,115,42,0.28);font-family:var(--sans);white-space:nowrap;transition:opacity .2s}
+.lang{font-size:10px;border:1px solid var(--border);padding:5px 11px;border-radius:20px;color:var(--text3);cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.cta{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#fff;border:none;padding:10px 20px;border-radius:28px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(184,115,42,0.28);white-space:nowrap;transition:opacity .2s}
 .cta:hover{opacity:.88}
 
-/* HERO */
-.hero{display:grid;grid-template-columns:1fr 1.15fr;height:580px;max-height:580px;background:#fff;position:relative;overflow:hidden}
-.hero-l{padding:52px 48px 90px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
-.tiny-heart{color:var(--gold);font-size:13px;margin-bottom:6px;opacity:.65}
-.eyebrow{font-size:12.5px;color:var(--gold);font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:9px}
-.eyebrow::before,.eyebrow::after{content:'';height:1px;width:26px;background:var(--gold);display:inline-block}
-.hero-l h1{font-family:var(--serif);font-size:50px;font-weight:500;line-height:1.1;margin-bottom:18px;color:var(--text)}
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:1fr 1.1fr;height:560px;background:#fff;overflow:hidden;position:relative}
+.hero-l{padding:50px 46px 88px 52px;display:flex;flex-direction:column;justify-content:center;z-index:2}
+.tiny-heart{color:var(--gold);font-size:13px;margin-bottom:5px;opacity:.65}
+.eyebrow{font-size:12px;color:var(--gold);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eyebrow::before,.eyebrow::after{content:'';height:1px;width:22px;background:var(--gold);display:inline-block}
+.hero-l h1{font-family:var(--serif);font-size:48px;font-weight:500;line-height:1.1;margin-bottom:16px;color:var(--text)}
 .hero-l h1 em{font-style:italic;color:var(--gold)}
-.hero-desc{font-size:14.5px;color:var(--text2);line-height:1.8;margin-bottom:30px;max-width:400px}
+.hero-desc{font-size:14px;color:var(--text2);line-height:1.85;margin-bottom:28px;max-width:400px}
 .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-gold{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:13px 24px;border-radius:28px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 5px 18px rgba(184,115,42,0.26);font-family:var(--sans);transition:all .2s}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#fff;border:none;padding:13px 24px;border-radius:28px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;box-shadow:0 5px 16px rgba(184,115,42,0.26);transition:all .2s}
 .btn-gold:hover{opacity:.88;transform:translateY(-1px)}
-.btn-white{background:#fff;color:var(--text);border:1.5px solid var(--text);padding:12px 24px;border-radius:28px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.btn-white{background:#fff;color:var(--text);border:1.5px solid var(--text);padding:12px 24px;border-radius:28px;font-size:12px;font-weight:600;transition:all .2s}
 .btn-white:hover{background:var(--text);color:#fff}
-.hero-r{position:relative;overflow:hidden;max-height:580px}
-.hero-r img{width:100%;height:100%;object-fit:cover;object-position:center 20%;max-height:580px}
-.wave-wrap{position:absolute;bottom:0;left:0;right:0;z-index:3}
-.wave-gold{height:3px;background:linear-gradient(90deg,transparent 0%,#E0A83A 30%,#C98B2D 50%,#E0A83A 70%,transparent 100%)}
-.wave-white{height:48px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 48'%3E%3Cpath fill='%23ffffff' d='M0,32 C400,56 1040,8 1440,32 L1440,48 L0,48Z'/%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
+.hero-r{overflow:hidden;height:560px;position:relative}
+.hero-r img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.wave-wrap{position:absolute;bottom:0;left:0;right:0;z-index:3;pointer-events:none}
+.wave-gold{height:3px;background:linear-gradient(90deg,transparent,var(--gold3) 30%,var(--gold) 50%,var(--gold3) 70%,transparent)}
+.wave-white{height:44px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 44'%3E%3Cpath fill='%23ffffff' d='M0,30 C400,52 1040,8 1440,30 L1440,44 L0,44Z'/%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
 
-/* PILLARS */
+/* ── PILLARS ── */
 .pillars{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.pillars-inner{display:grid;grid-template-columns:repeat(5,1fr) 190px;padding:0 40px}
-.pil{display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 10px;border-right:1px solid var(--border)}
-.pil-icon{font-size:24px;color:var(--gold);margin-bottom:10px}
-.pil h3{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;color:var(--text)}
-.pil p{font-size:10.5px;color:var(--text3);line-height:1.5}
-.pil-quote{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px 14px}
-.pil-quote p{font-family:var(--serif);font-size:12.5px;font-style:italic;color:var(--text2);line-height:1.75;margin-bottom:9px}
+.pillars-inner{display:grid;grid-template-columns:repeat(3,1fr) 200px;padding:0 52px}
+.pil{display:flex;align-items:flex-start;gap:16px;padding:28px 24px 28px 0;border-right:1px solid var(--border)}
+.pil:last-of-type{border-right:none}
+.pil-icon{font-size:28px;color:var(--gold);flex-shrink:0;margin-top:4px}
+.pil-text h3{font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:6px;color:var(--text)}
+.pil-text p{font-size:12px;color:var(--text3);line-height:1.65}
+.pil-quote{padding:28px 0 28px 24px;display:flex;flex-direction:column;justify-content:center}
+.pil-quote p{font-family:var(--serif);font-size:14px;font-style:italic;color:var(--text2);line-height:1.75;margin-bottom:10px}
 .hr-heart{display:flex;align-items:center;gap:5px;color:var(--gold);font-size:11px}
 .hr-heart::before,.hr-heart::after{content:'';height:1px;width:14px;background:var(--gold)}
 
-/* WELCOME */
-.welcome{display:grid;grid-template-columns:1fr 1fr 1fr 0.72fr;background:#fff;border-bottom:1px solid var(--border)}
-.wl{padding:46px 38px;border-right:1px solid var(--border)}
-.wm{overflow:hidden;height:280px;max-height:280px}
-.wm img{width:100%;height:280px;object-fit:cover}
-.wr{padding:46px 34px;border-left:1px solid var(--border);border-right:1px solid var(--border)}
-.wfr{overflow:hidden;max-height:280px}
-.wfr img{width:100%;height:280px;object-fit:cover}
-.slabel{font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:11px}
-.wl h2{font-family:var(--serif);font-size:25px;font-weight:500;line-height:1.35;margin-bottom:11px;color:var(--text)}
-.w-heart{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
-.wl p{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:20px}
-.learn{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:9px 18px;border-radius:28px;font-size:10.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:var(--sans)}
-.wr h3{font-family:var(--serif);font-size:27px;font-weight:400;line-height:1.3;margin-bottom:10px;color:var(--text)}
-.w-heart2{color:var(--gold);font-size:13px;margin:7px 0;opacity:.65}
-.gold-bar{width:26px;height:2px;background:var(--gold);margin:10px 0 13px}
-.wr p{font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:14px}
-.explore{font-size:11.5px;color:var(--gold);font-weight:600;letter-spacing:.04em;display:inline-flex;align-items:center;gap:4px}
+/* ── WELCOME ── */
+.welcome{display:grid;grid-template-columns:1fr 1fr 1fr 0.65fr;background:#fff;border-bottom:1px solid var(--border)}
+.wl{padding:48px 40px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.wm{overflow:hidden}
+.wm img{width:100%;height:100%;object-fit:cover;display:block}
+.wr{padding:48px 36px;border-left:1px solid var(--border);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center}
+.wfr{overflow:hidden}
+.wfr img{width:100%;height:100%;object-fit:cover;display:block}
+.slabel{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:12px}
+.wl h2{font-family:var(--serif);font-size:26px;font-weight:500;line-height:1.35;margin-bottom:12px;color:var(--text)}
+.wl h2 em{font-style:italic;color:var(--gold)}
+.w-heart{color:var(--gold);font-size:13px;margin:8px 0;opacity:.65}
+.wl p{font-size:12.5px;color:var(--text2);line-height:1.85;margin-bottom:22px}
+.learn-btn{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#fff;border:none;padding:10px 20px;border-radius:28px;font-size:11px;font-weight:600;display:inline-flex;align-items:center;gap:5px;width:fit-content}
+.wr h3{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.3;margin-bottom:10px;color:var(--text)}
+.wr h3 em{font-style:normal;color:var(--gold)}
+.w-heart2{color:var(--gold);font-size:13px;margin:8px 0;opacity:.65}
+.gold-bar{width:26px;height:2px;background:var(--gold);margin:8px 0 14px}
+.wr p{font-size:12.5px;color:var(--text2);line-height:1.85;margin-bottom:14px}
+.explore{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:.04em;display:inline-flex;align-items:center;gap:4px}
 .explore:hover{opacity:.7}
 
-/* CARDS */
-.cards{padding:46px 40px 56px;background:var(--cream2);border-bottom:1px solid var(--border)}
-.cards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;transition:transform .2s,box-shadow .2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(184,115,42,0.09)}
-.card-top{padding:16px 12px 8px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.card-icon{font-size:24px;color:var(--gold);margin-bottom:10px}
-.card-top h4{font-family:var(--serif);font-size:15.5px;font-weight:500;margin-bottom:7px;color:var(--text);line-height:1.3}
-.card-top p{font-size:10.5px;color:var(--text3);line-height:1.6;margin-bottom:12px}
-.card-img{height:100px;overflow:hidden}
-.card-img img{width:100%;height:100%;object-fit:cover}
+/* ── CARDS ── */
+.cards{padding:48px 52px 56px;background:var(--cream2);border-bottom:1px solid var(--border)}
+.section-label{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:22px}
+.cards-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.card{background:#fff;border-radius:16px;border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-5px);box-shadow:0 12px 32px rgba(184,115,42,0.1)}
+.card-body{padding:18px 16px 12px;display:flex;flex-direction:column;align-items:center;text-align:center;flex:1}
+.card-icon{font-size:26px;color:var(--gold);margin-bottom:10px}
+.card-body h4{font-family:var(--serif);font-size:17px;font-weight:500;margin-bottom:7px;color:var(--text);line-height:1.3}
+.card-body p{font-size:11px;color:var(--text3);line-height:1.65}
+.card-img{width:100%;aspect-ratio:4/3;overflow:hidden;flex-shrink:0}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.card:hover .card-img img{transform:scale(1.04)}
 
-/* NEWSLETTER */
-.nl{padding:46px 52px;background:#fff;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:36px}
-.nl-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.nl-logo svg{width:40px;height:48px}
-.nl-l h3{font-family:var(--serif);font-size:25px;font-weight:400;margin-bottom:7px;color:var(--text)}
-.nl-l p{font-size:12.5px;color:var(--text2);line-height:1.75;max-width:340px}
-.nl-form{display:flex;flex-direction:column;gap:9px}
-.email-wrap{display:flex;background:var(--cream2);border:1px solid var(--border);border-radius:28px;overflow:hidden;padding:4px}
-.email-in{border:none;background:transparent;padding:9px 16px;flex:1;outline:none;font-size:12.5px;color:var(--text);font-family:var(--sans)}
-.nl-btn{background:linear-gradient(135deg,#C98B2D,#E0A83A);color:#fff;border:none;padding:10px 18px;border-radius:22px;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:5px;font-family:var(--sans)}
-.privacy{font-size:9.5px;color:var(--text3);display:flex;align-items:center;gap:4px}
-.nl-r{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-.yt-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.yt-icon{background:#FF0000;color:#fff;width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+/* ── MEDICAL TOURISM ── */
+.medical{background:#fff;border-bottom:1px solid var(--border)}
+.medical-inner{display:grid;grid-template-columns:1fr 1fr}
+.med-photo{overflow:hidden;min-height:380px}
+.med-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.med-content{padding:52px 48px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
+.med-badge{display:inline-flex;align-items:center;gap:6px;background:var(--cream3);border:0.5px solid var(--gold2);border-radius:20px;padding:5px 14px;font-size:10px;font-weight:600;color:#633806;margin-bottom:18px;width:fit-content}
+.med-content h2{font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.25;margin-bottom:16px;color:var(--text)}
+.med-content h2 em{font-style:italic;color:var(--gold)}
+.med-content p{font-size:13px;color:var(--text2);line-height:1.85;margin-bottom:20px;max-width:440px}
+.med-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.med-tag{background:var(--cream2);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:11px;color:var(--text2)}
+.med-btn{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#fff;border:none;padding:13px 24px;border-radius:28px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:8px;width:fit-content;box-shadow:0 4px 14px rgba(184,115,42,0.28);margin-bottom:10px}
+.med-note{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px}
+.med-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:28px;border-top:1px solid var(--border);border-left:1px solid var(--border)}
+.stat{padding:20px 16px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stat-val{font-family:var(--serif);font-size:32px;font-weight:500;color:var(--gold);line-height:1;margin-bottom:5px}
+.stat-label{font-size:11px;color:var(--text);font-weight:500;margin-bottom:3px;line-height:1.4}
+.stat-sub{font-size:9.5px;color:var(--text3);line-height:1.4}
+
+/* ── NEWSLETTER ── */
+.nl{padding:52px;background:#fff;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:52px}
+.nl-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.nl-logo img{height:56px;width:auto;object-fit:contain}
+.nl-l h3{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:8px;color:var(--text)}
+.nl-l h3 em{font-style:italic;color:var(--gold)}
+.nl-l p{font-size:13px;color:var(--text2);line-height:1.8}
+.nl-r{display:flex;flex-direction:column;gap:12px}
+.email-wrap{display:flex;background:var(--cream2);border:1px solid var(--border);border-radius:28px;overflow:hidden;padding:5px}
+.email-in{border:none;background:transparent;padding:10px 18px;flex:1;outline:none;font-size:13px;color:var(--text);font-family:var(--sans)}
+.nl-btn{background:linear-gradient(135deg,var(--gold2),var(--gold3));color:#fff;border:none;padding:11px 20px;border-radius:22px;font-size:11px;font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.privacy{font-size:10px;color:var(--text3);display:flex;align-items:center;gap:4px}
+.socials{display:flex;flex-direction:column;gap:10px;padding-top:8px;border-top:1px solid var(--border)}
+.yt-row{display:flex;align-items:center;gap:10px}
+.yt-icon{background:#FF0000;color:#fff;width:34px;height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;text-decoration:none}
 .yt-text{font-size:12px;color:var(--text2);font-weight:500}
-.xhs-row{display:flex;align-items:center;gap:6px;margin-top:2px}
-.xhs-badge{background:#FF2442;color:#fff;padding:5px 10px;border-radius:6px;font-size:9px;font-weight:700}
+.xhs-row{display:flex;align-items:center;gap:6px}
+.xhs-badge{background:#FF2442;color:#fff;padding:4px 9px;border-radius:5px;font-size:9px;font-weight:700}
 .xhs-text{font-size:11px;color:var(--text3)}
 
-/* FOOTER */
-footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
-.fl{display:flex;align-items:center;gap:9px}
-.fl svg{width:24px;height:29px}
-.fl-name{font-family:var(--serif);font-size:15px;font-weight:600;color:var(--text)}
-.fl-name span{color:var(--gold)}
-.fl-tag{font-size:9px;color:var(--gold);letter-spacing:.8px}
-.fnav{display:flex;gap:18px}
-.fnav a{font-size:10.5px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase}
-.fnav a:hover{color:var(--gold)}
-.fcopy{font-size:10.5px;color:var(--text3);display:flex;align-items:center;gap:5px}
+/* ── FOOTER ── */
+footer{background:#fff;border-top:1px solid var(--border);padding:32px 52px 20px}
+.footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:40px;margin-bottom:24px}
+.footer-brand img{height:52px;width:auto;object-fit:contain;margin-bottom:10px}
+.footer-brand p{font-size:11px;color:var(--text3);line-height:1.7;max-width:200px}
+.footer-col h4{font-family:var(--serif);font-size:14px;font-weight:500;margin-bottom:12px;color:var(--text)}
+.footer-col a{display:block;font-size:11px;color:var(--text3);margin-bottom:7px;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.social-icons{display:flex;gap:8px;margin-top:4px}
+.soc-btn{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;text-decoration:none;transition:opacity .2s}
+.soc-btn:hover{opacity:.85}
+.footer-bottom{border-top:1px solid var(--border);padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fcopy{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
 .fcopy i{color:var(--gold)}
+.disclaimer{font-size:10px;color:var(--text3);max-width:600px;line-height:1.6;font-style:italic}
 
-@media(max-width:1024px){
-  nav{padding:12px 20px}
-  .hero{grid-template-columns:1fr}.hero-r{height:280px}.hero-l{padding:36px 20px 56px}.hero-l h1{font-size:36px}
-  .pillars-inner{grid-template-columns:repeat(3,1fr);padding:0 16px}
+@media(max-width:1100px){
+  nav{padding:10px 20px}
+  .hero{grid-template-columns:1fr;height:auto}.hero-r{height:280px}.hero-l{padding:32px 20px 52px}.hero-l h1{font-size:36px}
+  .pillars-inner{grid-template-columns:1fr;padding:0 20px}
   .welcome{grid-template-columns:1fr 1fr}.wfr{display:none}
   .cards-grid{grid-template-columns:repeat(2,1fr)}
-  .nl{grid-template-columns:1fr;padding:32px 20px}
-  footer{flex-direction:column;text-align:center;padding:16px 20px}
+  .medical-inner{grid-template-columns:1fr}.med-photo{min-height:220px}
+  .nl{grid-template-columns:1fr;padding:36px 20px}
+  footer{padding:24px 20px 16px}
+  .footer-top{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
@@ -143,9 +182,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 
 <!-- NAV -->
 <nav>
-  <div class="logo">
-    <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:72px;width:auto;object-fit:contain">
-  </div>
+  <div class="logo"><img src="logo.png" alt="CaregiverCompassAI Logo"></div>
   <ul class="navlinks">
     <li><a href="#" class="on">HOME</a></li>
     <li><a href="#">ABOUT</a></li>
@@ -164,16 +201,16 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <section class="hero">
   <div class="hero-l">
     <div class="tiny-heart"><i class="fa-regular fa-heart"></i></div>
-    <div class="eyebrow">Care with compassion, Nourish your life.</div>
+    <div class="eyebrow">Care with compassion. Nourish your life.</div>
     <h1>Guiding caregivers.<br>Honoring love.<br>Building <em>a better tomorrow.</em></h1>
-    <p class="hero-desc">Practical support, heartfelt wisdom, and longevity insights for caregivers and families navigating aging, dementia, and life's most meaningful journey.</p>
+    <p class="hero-desc">AI-powered guidance for Asian families navigating caregiving, longevity, fertility and holistic wellness — across Malaysia, Singapore, Japan, Indonesia, Philippines, China and beyond. With compassion. Across generations.</p>
     <div class="hero-btns">
       <button class="btn-gold"><i class="fa-solid fa-heart"></i> YOU ARE NOT ALONE</button>
       <button class="btn-white">OUR STORY</button>
     </div>
   </div>
   <div class="hero-r">
-    <img src="caregiver-hero.png" alt="Asian caregiver with elderly mother on sofa">
+    <img src="hero.png" alt="Three generations — grandmother, mother and child together warmly">
     <div class="wave-wrap">
       <div class="wave-gold"></div>
       <div class="wave-white"></div>
@@ -184,11 +221,27 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- PILLARS -->
 <section class="pillars">
   <div class="pillars-inner">
-    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-hands-holding-heart"></i></div><h3>Sharing & Caring</h3><p>We uplift and support caregivers through compassion and connection.</p></div>
-    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-seedling"></i></div><h3>Longevity</h3><p>We nurture health and vitality for a longer life.</p></div>
-    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-ribbon"></i></div><h3>Fertility</h3><p>We support your potential to create and renew life with balance.</p></div>
-    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-spa"></i></div><h3>Rejuvenative Therapy</h3><p>We help restore and revitalize body, mind, and spirit.</p></div>
-    <div class="pil"><div class="pil-icon"><i class="fa-solid fa-piggy-bank"></i></div><h3>Financial Wellness</h3><p>We bring clarity and confidence to your financial journey.</p></div>
+    <div class="pil">
+      <div class="pil-icon"><i class="fa-solid fa-hands-holding-heart"></i></div>
+      <div class="pil-text">
+        <h3>Caregiving & Longevity</h3>
+        <p>Supporting Asian families through aging, dementia and elder care with compassion, wisdom and AI-powered guidance.</p>
+      </div>
+    </div>
+    <div class="pil">
+      <div class="pil-icon"><i class="fa-solid fa-ribbon"></i></div>
+      <div class="pil-text">
+        <h3>Fertility & Regenerative Health</h3>
+        <p>The sandwich generation carries the weight of two generations. We help restore your hormonal health, fertility and vitality.</p>
+      </div>
+    </div>
+    <div class="pil">
+      <div class="pil-icon"><i class="fa-solid fa-plane"></i></div>
+      <div class="pil-text">
+        <h3>Medical Tourism to Japan</h3>
+        <p>Japan leads the world in longevity and regenerative wellness. We guide Asian families to world-class wellness centres — in your language, with compassion.</p>
+      </div>
+    </div>
     <div class="pil-quote">
       <p>Inspired by Asian wisdom.<br>Rooted in care.<br>Driven by purpose.</p>
       <div class="hr-heart"><i class="fa-solid fa-heart" style="font-size:9px"></i></div>
@@ -200,64 +253,113 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <section class="welcome">
   <div class="wl">
     <span class="slabel">Welcome to Caregiver Compass AI</span>
-    <h2>Where caregiving meets compassion, culture, and a brighter tomorrow.</h2>
+    <h2>Where caregiving meets compassion, culture, and <em>a brighter tomorrow.</em></h2>
     <div class="w-heart"><i class="fa-regular fa-heart"></i></div>
-    <p>Born from personal experience and a deep respect for Asian values, Caregiver Compass AI is a space for caregivers, families, and loved ones to learn, share, and support one another.</p>
-    <button class="learn">LEARN MORE ABOUT OUR JOURNEY <i class="fa-solid fa-arrow-right"></i></button>
+    <p>Born from personal experience and a deep respect for Asian values, Caregiver Compass AI is a warm, trusted space for caregivers, families and loved ones to learn, share and support one another — navigating the most meaningful journeys of life together.</p>
+    <button class="learn-btn">LEARN MORE ABOUT OUR JOURNEY <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></button>
   </div>
-  <div class="wm"><img src="tea.png" alt="Warm tea lifestyle cozy interior"></div>
+  <div class="wm"><img src="tea.png" alt="Warm cozy tea lifestyle interior soft light"></div>
   <div class="wr">
-    <h3>Nourish the body.<br>Renew the mind.<br><span style="color:var(--gold)">Elevate life.</span></h3>
+    <h3>Nourish the body.<br>Renew the mind.<br><em>Elevate life.</em></h3>
     <div class="w-heart2"><i class="fa-regular fa-heart"></i></div>
     <div class="gold-bar"></div>
-    <p>Explore brain health, longevity, and everyday practices that help you and your loved ones live better, longer.</p>
-    <a href="#" class="explore">EXPLORE RESOURCES <i class="fa-solid fa-arrow-right"></i></a>
+    <p>Explore brain health, longevity and everyday practices that help you and your loved ones live better, longer — drawing from the best of Asian wisdom and modern science.</p>
+    <a href="#" class="explore">EXPLORE RESOURCES <i class="fa-solid fa-arrow-right" style="font-size:10px"></i></a>
   </div>
-  <div class="wfr"><img src="vase.png" alt="White vase with green plant on books"></div>
+  <div class="wfr"><img src="vase.png" alt="White vase with green plant on books warm light"></div>
 </section>
 
 <!-- CARDS -->
 <section class="cards">
+  <span class="section-label">Explore our topics</span>
   <div class="cards-grid">
     <div class="card">
-      <div class="card-top">
+      <div class="card-body">
         <div class="card-icon"><i class="fa-solid fa-hands-holding-heart"></i></div>
         <h4>Caregiver Support</h4>
-        <p>Practical tips, emotional support, and real-life guidance.</p>
+        <p>Practical tips, emotional support and real-life guidance for every stage of the caregiving journey.</p>
       </div>
-      <div class="card-img"><img src="handshake.png" alt="Caregiver support handshake warm golden"></div>
+      <div class="card-img"><img src="handshake.png" alt="Warm golden handshake caregiver support"></div>
     </div>
     <div class="card">
-      <div class="card-top">
+      <div class="card-body">
         <div class="card-icon"><i class="fa-solid fa-brain"></i></div>
         <h4>Longevity & Brain Health</h4>
-        <p>Science-backed insights and habits for a healthier brain and longer life.</p>
+        <p>Wisdom-backed guidance and daily practices for a sharper mind and longer, more vibrant life.</p>
       </div>
-      <div class="card-img"><img src="brain.png" alt="Glowing brain health longevity"></div>
+      <div class="card-img"><img src="longevity.png" alt="Peaceful Asian elderly woman in golden morning light"></div>
     </div>
     <div class="card">
-      <div class="card-top">
+      <div class="card-body">
         <div class="card-icon"><i class="fa-solid fa-ribbon"></i></div>
         <h4>Fertility & Regenerative Wellness</h4>
-        <p>Nurture your body and hormonal balance. Support fertility and regenerative wellness at every stage.</p>
+        <p>Nurture your hormonal balance, restore your vitality and support your journey to parenthood at every stage.</p>
       </div>
-      <div class="card-img"><img src="fertility.png" alt="Fertility regenerative wellness heart hands"></div>
+      <div class="card-img"><img src="fertility.png" alt="Hands forming heart with soft flowers fertility wellness"></div>
     </div>
     <div class="card">
-      <div class="card-top">
+      <div class="card-body">
         <div class="card-icon"><i class="fa-solid fa-spa"></i></div>
         <h4>Rejuvenative Therapy</h4>
-        <p>Nutrients, approaches, mindfulness, and lifestyle practices that help you renew, restore, and revitalize.</p>
+        <p>Natural approaches, mindfulness and lifestyle practices to help you renew, restore and revitalize — body, mind and spirit.</p>
       </div>
-      <div class="card-img"><img src="wellness.png" alt="Wellness rejuvenative therapy oils towel"></div>
+      <div class="card-img"><img src="wellness.png" alt="Zen stones candle and plant rejuvenative therapy"></div>
     </div>
     <div class="card">
-      <div class="card-top">
+      <div class="card-body">
         <div class="card-icon"><i class="fa-solid fa-piggy-bank"></i></div>
         <h4>Financial Wellness</h4>
-        <p>Guidance and tools to ease financial worries and plan with confidence.</p>
+        <p>Guidance and tools to ease financial stress and help families plan for caregiving with clarity and confidence.</p>
       </div>
-      <div class="card-img"><img src="financial.png" alt="Financial wellness piggy bank calculator"></div>
+      <div class="card-img"><img src="financial.png" alt="Piggy bank calculator financial wellness planning"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDICAL TOURISM -->
+<section class="medical">
+  <div class="medical-inner">
+    <div class="med-photo">
+      <img src="japan.png" alt="Japan pagoda cherry blossom Mt Fuji stunning landscape">
+    </div>
+    <div class="med-content">
+      <div class="med-badge"><i class="fa-solid fa-plane"></i> Our signature offering</div>
+      <h2>Discover Japan's world-class wellness journey — <em>longevity, regenerative health, fertility and holistic healing for Asian families</em></h2>
+      <p>Japan is the world's leader in longevity wisdom, regenerative health and holistic wellness. As your guide and companion, we help Asian families across Malaysia, Singapore, Japan, China, Indonesia, Philippines and beyond discover the right wellness journey — in your language, with heart.</p>
+      <div class="med-tags">
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Regenerative wellness</span>
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Longevity programs</span>
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Fertility support</span>
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Integrative healing</span>
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Anti-aging coaching</span>
+        <span class="med-tag"><i class="fa-solid fa-circle-dot" style="font-size:8px;color:var(--gold);margin-right:4px"></i>Mindful recovery</span>
+      </div>
+      <a href="https://wa.me/message/CAREGIVERCOMPASSAI" class="med-btn">
+        <i class="fa-brands fa-whatsapp" style="font-size:16px"></i> Start your Japan wellness journey
+      </a>
+      <div class="med-note"><i class="fa-solid fa-triangle-exclamation" style="color:#E0A83A;font-size:11px"></i> Enquiry goes to us first — never directly to clinic</div>
+      <div class="med-stats">
+        <div class="stat">
+          <div class="stat-val">#1</div>
+          <div class="stat-label">Japan — world's top longevity nation</div>
+          <div class="stat-sub">WHO Global Health Rankings</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">3x</div>
+          <div class="stat-label">Lower cost vs US & UK treatments</div>
+          <div class="stat-sub">Average medical tourism saving</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">4</div>
+          <div class="stat-label">Languages — EN, JP, 中文, BM</div>
+          <div class="stat-sub">Only multilingual Asian health guide</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">Asia</div>
+          <div class="stat-label">Serving Asian families everywhere</div>
+          <div class="stat-sub">MY, SG, JP, ID, PH, CN & beyond</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -265,42 +367,65 @@ footer{background:#fff;border-top:1px solid var(--border);padding:20px 52px;disp
 <!-- NEWSLETTER -->
 <section class="nl" id="newsletter">
   <div class="nl-l">
-    <div class="nl-logo">
-      <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:60px;width:auto;object-fit:contain">
-    </div>
-    <h3>Let's walk this journey together.</h3>
-    <p>Get weekly caregiving wisdom, longevity tips, and exclusive offers straight to your inbox — from my heart to yours.</p>
-  </div>
-  <div class="nl-form">
-    <div class="email-wrap">
-      <input type="email" class="email-in" placeholder="Your email address" aria-label="Email">
-      <button class="nl-btn"><i class="fa-solid fa-gift"></i> Free Longevity Guide 🎁</button>
-    </div>
-    <div class="privacy"><i class="fa-solid fa-lock" style="font-size:10px;color:var(--gold)"></i> No spam, ever. Unsubscribe anytime.</div>
+    <div class="nl-logo"><img src="logo.png" alt="CaregiverCompassAI Logo"></div>
+    <h3>Let's walk this journey <em>together.</em></h3>
+    <p>Get weekly caregiving wisdom, longevity tips, Japan wellness insider knowledge, fertility insights and exclusive offers — delivered personally to your inbox. From my heart to yours.</p>
   </div>
   <div class="nl-r">
-    <div class="yt-row">
-      <a href="#" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
-      <div class="yt-text">Follow us on <strong>YouTube</strong></div>
+    <div class="email-wrap">
+      <input type="email" class="email-in" placeholder="Your email address" aria-label="Email address">
+      <button class="nl-btn"><i class="fa-solid fa-gift"></i> Free Longevity Guide 🎁</button>
     </div>
-    <div class="xhs-text" style="font-size:11px;color:var(--text3)">Coming soon on</div>
-    <div class="xhs-row">
-      <div class="xhs-badge">小红书</div>
-      <div class="xhs-text"><strong>XHS</strong></div>
+    <div class="privacy"><i class="fa-solid fa-lock" style="font-size:9px;color:var(--gold)"></i> No spam, ever. Unsubscribe anytime. Your privacy is protected.</div>
+    <div class="socials">
+      <div class="yt-row">
+        <a href="#" class="yt-icon"><i class="fa-brands fa-youtube"></i></a>
+        <div class="yt-text">Follow us on <strong>YouTube</strong></div>
+      </div>
+      <div style="font-size:10px;color:var(--text3)">Coming soon on</div>
+      <div class="xhs-row">
+        <div class="xhs-badge">小红书</div>
+        <div class="xhs-text"><strong>XHS</strong></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="fl">
-    <img src="logo.png" alt="CaregiverCompassAI Logo" style="height:52px;width:auto;object-fit:contain">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo.png" alt="CaregiverCompassAI Logo">
+      <p>AI-powered wellness guidance for Asian families — caregiving, longevity, fertility and medical tourism with compassion.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Journey</a>
+      <a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+      <a href="#">Free Longevity Guide</a>
+      <a href="#">Japan Wellness Journey</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect with us</h4>
+      <div class="social-icons">
+        <a href="#" class="soc-btn" style="background:#FF0000" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="soc-btn" style="background:#FF2442;font-size:9px;font-weight:700" title="XHS">小红</a>
+        <a href="#" class="soc-btn" style="background:#25D366" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" class="soc-btn" style="background:#0077B5" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+    </div>
   </div>
-  <nav class="fnav">
-    <a href="#">HOME</a><a href="#">ABOUT</a><a href="#">JOURNEY</a>
-    <a href="#">RESOURCES</a><a href="#">BLOG</a><a href="#">CONTACT</a>
-  </nav>
-  <div class="fcopy">© 2026 Caregiver Compass AI. All rights reserved. <i class="fa-solid fa-heart"></i></div>
+  <div class="footer-bottom">
+    <div class="fcopy">© 2026 Caregiver Compass AI. All rights reserved. <i class="fa-solid fa-heart"></i></div>
+    <div class="disclaimer">CaregiverCompassAI provides wellness guidance and education only. We are not medical professionals. Always consult your doctor for medical advice.</div>
+  </div>
 </footer>
 
 </body>

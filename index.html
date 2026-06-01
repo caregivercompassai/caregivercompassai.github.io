@@ -106,9 +106,9 @@
   .nourish-h2 { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; color: var(--brown); line-height: 1.25; margin-bottom: 16px; }
   .nourish-h2 em { color: var(--terracotta); font-style: italic; }
   .nourish-sub { font-size: 17px; color: var(--brown-light); max-width: 580px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
-  .nourish-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+  .nourish-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
   .nourish-img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
-  .nourish-img-wrap img { width: 100%; height: 360px; object-fit: cover; object-position: center; }
+  .nourish-img-wrap img { width: 100%; height: 500px; object-fit: cover; object-position: center; }
   .nourish-img-badge {
     position: absolute; bottom: 24px; left: 24px;
     background: rgba(253,248,243,0.96); backdrop-filter: blur(8px);
@@ -136,20 +136,20 @@
 
   /* JAPAN SECTION */
   .japan { position: relative; overflow: hidden; }
-  .japan-bg { width: 100%; height: 480px; object-fit: cover; object-position: center; display: block; }
+  .japan-bg { width: 100%; height: 600px; object-fit: cover; object-position: center; display: block; }
   .japan-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(to right, rgba(61,43,31,0.82) 0%, rgba(61,43,31,0.4) 55%, rgba(61,43,31,0.1) 100%);
     display: flex; align-items: center;
   }
-  .japan-content { padding: 0 72px; max-width: 600px; }
+  .japan-content { padding: 40px 64px; max-width: 580px; }
   .japan-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
   .japan-tag::before { content: ''; width: 30px; height: 1px; background: rgba(255,255,255,0.5); }
-  .japan-h2 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 400; color: #fff; line-height: 1.25; margin-bottom: 18px; }
+  .japan-h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: #fff; line-height: 1.3; margin-bottom: 16px; }
   .japan-h2 em { color: #F2C98A; font-style: italic; }
-  .japan-body { font-size: 16px; color: rgba(255,255,255,0.82); line-height: 1.85; margin-bottom: 28px; font-weight: 300; }
-  .japan-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
-  .japan-pill { font-size: 13px; padding: 5px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
+  .japan-body { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 18px; font-weight: 300; }
+  .japan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .japan-pill { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
   .btn-japan { background: var(--terracotta); color: #fff; font-size: 13px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
   .btn-japan:hover { background: var(--terracotta-dark); }
   .japan-stats { display: flex; gap: 32px; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.2); }
@@ -181,7 +181,6 @@
   .footer-social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.2s; }
   .footer-social a:hover { border-color: #F2C98A; color: #F2C98A; }
   .footer-brand { display: flex; flex-direction: column; }
-  .footer-brand img { mix-blend-mode: lighten; }
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
   .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
 
@@ -235,7 +234,7 @@
     </div>
     <h1 class="hero-h1">Guiding caregivers.<br>Honoring love.<br>Building <em>a better tomorrow.</em></h1>
     <p class="hero-sub">
-      <strong>AI-powered guidance</strong> for Asian families navigating caregiving, longevity, fertility and holistic wellness — with compassion. Across generations.
+      <strong>AI-powered guidance</strong> for Asian families navigating brain health, longevity, fertility and holistic wellness — with compassion. Across generations.
     </p>
     <div class="hero-btns">
       <a href="mailto:hello@caregivercompassai.com?subject=You Are Not Alone — I need support&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI am reaching out because I need support with caregiving for my loved one.%0D%0A%0D%0APlease contact me at your earliest convenience.%0D%0A%0D%0AWith warmth," class="btn-solid">You Are Not Alone ♡</a>
@@ -393,7 +392,7 @@
         <span class="japan-pill">Longevity Programs</span>
         <span class="japan-pill">Golf Wellness Retreats</span>
         <span class="japan-pill">Fertility Support</span>
-        <span class="japan-pill">Anti-ageing Coaching</span>
+        <span class="japan-pill">Nutrition &amp; Dietitian</span>
         <span class="japan-pill">Immune Restoration</span>
       </div>
       <a href="mailto:hello@caregivercompassai.com?subject=Japan Wellness Journey Enquiry&body=Dear CaregiverCompassAI,%0D%0A%0D%0AI am interested in learning more about your Japan Wellness Journey.%0D%0A%0D%0APlease contact me with details.%0D%0A%0D%0AThank you." class="btn-japan">Start your Japan wellness journey ✉</a>
@@ -436,9 +435,8 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <img src="logo.png" alt="CaregiverCompassAI Logo">
-      <div class="footer-brand-name">Caregiver Compass <span>AI</span></div>
-      <p class="footer-desc">AI-powered caregiving platform for Asian families — navigating aging, dementia and longevity with compassion.</p>
+      <div class="footer-brand-name" style="margin-top:0;">Caregiver Compass <span>AI</span></div>
+      <p class="footer-desc">AI-powered caregiving platform for Asian families — navigating brain health, longevity, fertility and holistic wellness with compassion.</p>
       <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
         <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-size:15px; color:rgba(255,255,255,0.75); text-decoration:none; width:fit-content;">
           <span style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">▶</span>

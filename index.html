@@ -224,10 +224,10 @@ function googleTranslateElementInit() {
   font-size: 0 !important;
 }
 .goog-te-gadget .goog-te-combo {
-  background: transparent;
-  border: 1.5px solid rgba(193,122,58,0.5);
+  background: #FDF8F3;
+  border: 1.5px solid rgba(193,122,58,0.6);
   border-radius: 20px;
-  padding: 6px 14px;
+  padding: 7px 32px 7px 14px;
   font-size: 13px !important;
   color: #3D2B1F;
   font-family: 'DM Sans', sans-serif;
@@ -238,8 +238,8 @@ function googleTranslateElementInit() {
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23C17A3A'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 10px center;
-  padding-right: 28px;
+  background-position: right 12px center;
+  min-width: 130px;
 }
 .goog-te-gadget .goog-te-combo:hover {
   border-color: #C17A3A;
@@ -268,13 +268,9 @@ body { top: 0 !important; }
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
-    <span class="lang">🌐 EN / 日本語 / 中文</span>
+    <div id="google_translate_element"></div>
     <a href="mailto:hello@caregivercompassai.com?subject=Free Longevity Guide Request" class="btn-nav">Free Longevity Guide ✦</a>
   </div>
-  <div style="display:flex; align-items:center; gap:8px;">
-      <span style="font-size:12px; color:#7B6B60; letter-spacing:0.5px;">🌐</span>
-      <div id="google_translate_element"></div>
-    </div>
   </nav>
 
 <!-- HERO -->

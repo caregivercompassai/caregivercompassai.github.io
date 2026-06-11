@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaregiverCompassAI Financial Calculator</title>
+<meta name="description" content="Find your family's exact financial protection gap in 3 minutes. Personalised for Asian families across Malaysia, Singapore, Japan, Indonesia, Philippines, Korea, China, Hong Kong and Taiwan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── Ivory body — from pillar section ── */
+  --ivory:        #f9f4ec;
+  --ivory-warm:   #f3ece0;
+  --ivory-dark:   #e8e0d0;
+  --card-bg:      #fefcf8;
+  --card-border:  #e8e0d0;
+
+  /* ── Dark brown — from footer ── */
+  --footer-bg:    #2a1f14;
+  --footer-mid:   #3d2c1c;
+  --footer-text:  #c8b89a;
+  --footer-muted: #7a6550;
+
+  /* ── Terracotta gold — from footer AI / accent ── */
+  --gold:         #c8883a;
+  --gold-dk:      #a86c22;
+  --gold-lt:      #f5e8d0;
+  --gold-bd:      #d4a060;
+
+  /* ── Text ── */
+  --brown:        #2a1f14;
+  --brown-mid:    #5c3d22;
+  --brown-lt:     #9c7a5e;
+  --white:        #ffffff;
+
+  /* ── Status ── */
+  --risk-bg:  #fdf0ea; --risk-bd: #e8a888; --risk-tx: #7a2e18;
+  --warn-bg:  #fdf5e0; --warn-bd: #e8cc90; --warn-tx: #7a5200;
+  --ok-bg:    #eef4ee; --ok-bd:   #b4d4b8; --ok-tx:   #2d5832;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-body:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px; --r-pill: 99px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: var(--ivory); color: var(--brown-mid); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+.site-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--ivory-dark);
+  padding: 0 32px;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo { width: 42px; height: 42px; flex-shrink: 0; object-fit: contain; }
+.nav-site-name { font-family: var(--font-serif); font-size: 16px; font-weight: 600; color: var(--brown); display: block; letter-spacing: 0.01em; }
+.nav-gold { color: var(--gold); }
+.nav-site-tag { font-size: 10px; color: var(--brown-lt); letter-spacing: 0.05em; }
+.nav-back { font-size: 12px; font-weight: 500; color: var(--brown-lt); text-decoration: none; letter-spacing: 0.02em; }
+.nav-back:hover { color: var(--gold); }
+.nav-cta {
+  padding: 9px 20px; background: var(--gold); color: var(--white); border: none;
+  border-radius: var(--r-pill); font-size: 13px; font-weight: 500; font-family: var(--font-body);
+  cursor: pointer; text-decoration: none; letter-spacing: 0.02em; transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--gold-dk); }
+
+/* ── PAGE ── */
+.page { max-width: 680px; margin: 0 auto; padding: 44px 20px 0; }
+
+/* ── HERO — dark footer colour as hero band ── */
+.calc-hero {
+  background: var(--footer-bg);
+  border-radius: var(--r-xl);
+  padding: 44px 32px 38px;
+  margin-bottom: 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.calc-hero::before {
+  content: '';
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(200,136,58,0.07);
+  pointer-events: none;
+}
+.calc-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -40px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(200,136,58,0.05);
+  pointer-events: none;
+}
+.calc-hero > * { position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after { content: '—'; opacity: 0.4; }
+.calc-hero h1 {
+  font-family: var(--font-serif); font-size: 30px; font-weight: 500;
+  color: var(--white); line-height: 1.25; margin-bottom: 14px; letter-spacing: 0.01em;
+}
+.calc-hero h1 em { font-style: italic; color: var(--gold); }
+.calc-hero p { font-size: 13px; color: var(--footer-text); line-height: 1.75; max-width: 460px; margin: 0 auto 22px; }
+.country-flags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.cflag {
+  font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,0.07); color: var(--footer-text);
+  border: 1px solid rgba(255,255,255,0.12); letter-spacing: 0.01em;
+}
+
+/* ── PILLAR QUOTE ── */
+.pillar-quote {
+  border-left: 2px solid var(--gold-bd);
+  padding: 14px 18px; margin-bottom: 26px;
+  background: var(--gold-lt); border-radius: 0 var(--r-md) var(--r-md) 0;
+}
+.pillar-quote p { font-family: var(--font-serif); font-size: 15px; font-style: italic; color: var(--brown); line-height: 1.7; }
+
+/* ── PROGRESS ── */
+.progress-wrap { margin-bottom: 24px; }
+.progress-labels { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; margin-bottom: 8px; }
+.pl { font-size: 10px; font-weight: 500; color: var(--brown-lt); text-align: center; padding: 6px 2px; border-radius: var(--r-sm); letter-spacing: 0.02em; transition: all 0.2s; }
+.pl.active { background: var(--gold-lt); color: var(--gold-dk); font-weight: 600; }
+.pl.done { color: var(--gold); }
+.progress-track { height: 2px; background: var(--ivory-dark); border-radius: 2px; overflow: hidden; }
+.progress-bar { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.4s ease; }
+
+/* ── CARD ── */
+.card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--r-lg); padding: 24px 24px 20px; margin-bottom: 14px; }
+.card-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+}
+.card-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--ivory-dark); }
+
+/* ── FIELDS ── */
+.field { margin-bottom: 18px; }
+.field:last-child { margin-bottom: 0; }
+.field-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 500; color: var(--brown); margin-bottom: 8px; letter-spacing: 0.01em; }
+.field-val { font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--gold); }
+.field-hint { font-size: 11px; color: var(--brown-lt); margin-top: 5px; font-style: italic; }
+.currency-note { font-size: 11px; color: var(--gold-dk); margin-top: 5px; font-weight: 500; }
+
+input[type="range"] { -webkit-appearance: none; width: 100%; height: 2px; border-radius: 2px; background: var(--ivory-dark); outline: none; cursor: pointer; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--gold); border: 2px solid var(--white); box-shadow: 0 0 0 1px var(--gold-bd); transition: transform 0.15s; }
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+select { width: 100%; padding: 10px 34px 10px 13px; font-size: 13px; font-family: var(--font-body); border: 1px solid var(--card-border); border-radius: var(--r-sm); background: var(--white); color: var(--brown); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%239c7a5e' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; transition: border-color 0.2s; }
+select:focus { outline: none; border-color: var(--gold-bd); box-shadow: 0 0 0 3px rgba(200,136,58,0.1); }
+
+/* ── BUTTONS — matching site pill style ── */
+.btn-primary { width: 100%; padding: 13px 24px; background: transparent; color: var(--gold); border: 1.5px solid var(--gold); border-radius: var(--r-pill); font-size: 13px; font-weight: 500; font-family: var(--font-body); cursor: pointer; letter-spacing: 0.04em; transition: all 0.2s; margin-top: 6px; }
+.btn-primary:hover { background: var(--gold); color: var(--white); }
+.btn-primary:active { transform: scale(0.98); }
+.btn-row { display: flex; gap: 10px; margin-top: 6px; }
+.btn-back { padding: 13px 20px; background: transparent; color: var(--brown-lt); border: 1px solid var(--ivory-dark); border-radius: var(--r-pill); font-size: 13px; font-weight: 400; font-family: var(--font-body); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.btn-back:hover { border-color: var(--brown-lt); color: var(--brown); }
+.btn-grow { flex: 1; width: auto; margin-top: 0; }
+
+/* ── RESULTS HERO ── */
+.result-hero { border-radius: var(--r-lg); padding: 30px 24px 26px; margin-bottom: 16px; text-align: center; border: 1px solid; }
+.result-hero.has-gap { background: var(--risk-bg); border-color: var(--risk-bd); }
+.result-hero.protected { background: var(--ok-bg); border-color: var(--ok-bd); }
+.r-eye { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+.has-gap .r-eye { color: #c05a38; } .protected .r-eye { color: #3d7042; }
+.r-amount { font-family: var(--font-serif); font-size: 44px; font-weight: 600; line-height: 1.1; margin-bottom: 10px; letter-spacing: 0.01em; }
+.has-gap .r-amount { color: var(--risk-tx); } .protected .r-amount { color: var(--ok-tx); }
+.r-curr { font-size: 16px; font-weight: 400; opacity: 0.7; }
+.r-sub { font-size: 13px; line-height: 1.7; max-width: 400px; margin: 0 auto; }
+.has-gap .r-sub { color: #994433; } .protected .r-sub { color: #3d6640; }
+
+/* ── METRICS ── */
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 16px; }
+.metric { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--r-md); padding: 13px 10px; text-align: center; }
+.m-lbl { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brown-lt); margin-bottom: 6px; }
+.m-val { font-family: var(--font-serif); font-size: 13px; font-weight: 600; color: var(--brown); margin-bottom: 4px; line-height: 1.3; }
+.m-st { font-size: 11px; font-weight: 500; }
+.st-ok { color: #3d7042; } .st-warn { color: #9a6800; } .st-risk { color: #c05a38; }
+
+/* ── RECOMMENDATIONS ── */
+.reco { display: flex; gap: 13px; align-items: flex-start; padding: 14px; border-radius: var(--r-md); border: 1px solid var(--ivory-dark); background: var(--ivory); margin-bottom: 10px; }
+.reco:last-child { margin-bottom: 0; }
+.reco-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.reco-title { font-family: var(--font-serif); font-size: 15px; font-weight: 500; color: var(--brown); margin-bottom: 4px; line-height: 1.35; }
+.reco-desc { font-size: 12px; color: var(--brown-lt); line-height: 1.65; margin-bottom: 7px; }
+.reco-tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: var(--r-pill); letter-spacing: 0.04em; }
+.tag-p { background: var(--risk-bg); color: var(--risk-tx); border: 1px solid var(--risk-bd); }
+.tag-i { background: var(--warn-bg); color: var(--warn-tx); border: 1px solid var(--warn-bd); }
+.tag-r { background: var(--ok-bg);   color: var(--ok-tx);   border: 1px solid var(--ok-bd); }
+
+/* ── AFFILIATE BAR ── */
+.aff-bar { background: var(--ivory-warm); border: 1px solid var(--ivory-dark); border-radius: var(--r-md); padding: 12px 16px; font-size: 12px; color: var(--brown-lt); display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px; font-style: italic; }
+
+/* ── EMAIL CTA — dark footer style ── */
+.email-cta-wrap {
+  background: var(--footer-bg);
+  border-radius: var(--r-xl);
+  padding: 28px 28px 24px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+.email-cta-eyebrow { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; font-weight: 600; }
+.email-cta-title { font-family: var(--font-serif); font-size: 18px; font-weight: 500; color: var(--white); margin-bottom: 8px; line-height: 1.4; }
+.email-cta-sub { font-size: 12px; color: var(--footer-text); line-height: 1.65; margin-bottom: 20px; max-width: 380px; margin-left: auto; margin-right: auto; }
+.email-btn {
+  display: inline-block; padding: 13px 32px;
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: var(--r-pill); font-size: 13px; font-weight: 500;
+  font-family: var(--font-body); cursor: pointer; text-decoration: none;
+  letter-spacing: 0.04em; transition: all 0.2s;
+}
+.email-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--white); }
+.privacy-line { font-size: 11px; color: var(--footer-muted); margin-top: 12px; line-height: 1.7; font-style: italic; }
+
+.restart-btn { display: block; width: 100%; text-align: center; padding: 12px; color: var(--brown-lt); font-size: 12px; background: none; border: 1px solid var(--ivory-dark); border-radius: var(--r-pill); cursor: pointer; font-family: var(--font-body); transition: all 0.15s; letter-spacing: 0.03em; margin-bottom: 14px; }
+.restart-btn:hover { border-color: var(--brown-lt); color: var(--brown); }
+
+/* ── FOOTER — exact match to site footer ── */
+.calc-footer {
+  background: var(--footer-bg);
+  margin-top: 32px;
+  padding: 28px 24px 28px;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
+.footer-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: 0.01em; }
+.footer-logo { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+.footer-brand span { color: var(--gold); }
+.footer-tagline { font-size: 12px; color: var(--footer-text); line-height: 1.65; margin-bottom: 16px; max-width: 260px; }
+.footer-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 16px 0; }
+.footer-bottom { font-size: 11px; color: var(--footer-muted); line-height: 1.8; text-align: center; }
+.footer-bottom a { color: var(--gold); text-decoration: none; }
+.footer-bottom a:hover { text-decoration: underline; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 520px) {
+  .site-nav { padding: 0 16px; }
+  .nav-cta { display: none; }
+  .page { padding: 24px 14px 0; }
+  .calc-hero { padding: 32px 18px 28px; }
+  .calc-hero h1 { font-size: 22px; }
+  .r-amount { font-size: 32px; }
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .card { padding: 18px 16px; }
+  .email-cta-wrap { padding: 22px 18px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="site-nav">
+  <a href="https://caregivercompassai.com" class="nav-brand">
+    <img src="https://caregivercompassai.com/logo.png" alt="CaregiverCompassAI logo" class="nav-logo">
+    <div>
+      <span class="nav-site-name">Caregiver Compass <span class="nav-gold">AI</span></span>
+      <span class="nav-site-tag">Regenerate. Rejuvenate. Reconnect.</span>
+    </div>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px">
+    <a href="https://caregivercompassai.com" class="nav-back">&#8592; Back to home</a>
+    <a href="mailto:hello@caregivercompassai.com?subject=Get Guidance — CaregiverCompassAI" class="nav-cta">Get Guidance &#9825;</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- Hero — dark brown -->
+  <div class="calc-hero">
+    <div class="hero-eyebrow">Financial Wellness</div>
+    <h1>CaregiverCompassAI<br><em>Financial Calculator</em></h1>
+    <p>From insurance coverage to elder care and medical expenses — find your family's exact protection gap in 3 minutes. In your currency, personalised for your country.</p>
+    <div class="country-flags">
+      <span class="cflag">&#127474;&#127486; Malaysia</span>
+      <span class="cflag">&#127480;&#127468; Singapore</span>
+      <span class="cflag">&#127471;&#127477; Japan</span>
+      <span class="cflag">&#127470;&#127465; Indonesia</span>
+      <span class="cflag">&#127477;&#127469; Philippines</span>
+      <span class="cflag">&#127472;&#127479; Korea</span>
+      <span class="cflag">&#127464;&#127475; China</span>
+      <span class="cflag">&#127469;&#127472; Hong Kong</span>
+      <span class="cflag">&#127481;&#127484; Taiwan</span>
+    </div>
+  </div>
+
+  <!-- Pillar quote -->
+  <div class="pillar-quote">
+    <p>"From insurance to family office advisory — plan for every generation, without the overwhelm."</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-labels">
+      <div class="pl active" id="pl1">About you</div>
+      <div class="pl" id="pl2">Your family</div>
+      <div class="pl" id="pl3">Coverage</div>
+      <div class="pl" id="pl4">Results</div>
+    </div>
+    <div class="progress-track"><div class="progress-bar" id="prog" style="width:25%"></div></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div id="s1">
+    <div class="card">
+      <div class="card-eyebrow">Step 1 — About you</div>
+
+      <div class="field">
+        <div class="field-label">Your age <span class="field-val" id="age-v">35</span></div>
+        <input type="range" min="22" max="70" value="35" step="1" id="age"
+          oninput="document.getElementById('age-v').textContent=this.value">
+      </div>
+
+      <div class="field">
+        <div class="field-label">Country / region</div>
+        <select id="country" onchange="updateCurrencyHints()">
+          <option value="MY">&#127474;&#127486; Malaysia</option>
+          <option value="SG">&#127480;&#127468; Singapore</option>
+          <option value="JP">&#127471;&#127477; Japan</option>
+          <option value="ID">&#127470;&#127465; Indonesia</option>
+          <option value="PH">&#127477;&#127469; Philippines</option>
+          <option value="KR">&#127472;&#127479; Korea</option>
+          <option value="CN">&#127464;&#127475; China</option>
+          <option value="HK">&#127469;&#127472; Hong Kong</option>
+          <option value="TW">&#127481;&#127484; Taiwan</option>
+        </select>
+        <div class="currency-note" id="curr-note">&#128176; Figures shown in Malaysian Ringgit (RM)</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Employment status</div>
+        <select id="emp">
+          <option value="employed">Employed (salaried)</option>
+          <option value="self">Self-employed or business owner</option>
+          <option value="professional">Professional (doctor, lawyer, consultant)</option>
+          <option value="executive">Senior executive or corporate leader</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Current health status</div>
+        <select id="health">
+          <option value="good">Good — no major conditions</option>
+          <option value="managed">Managed condition (diabetes, hypertension, etc.)</option>
+          <option value="concern">Active health concern or recent diagnosis</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="go(2)">Continue &rarr;</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="s2" class="hidden">
+    <div class="card">
+      <div class="card-eyebrow">Step 2 — Your income &amp; family</div>
+
+      <div class="field">
+        <div class="field-label">Monthly household income</div>
+        <select id="income">
+          <option value="1">— select your income band —</option>
+        </select>
+        <div class="field-hint" id="income-hint">Select your country on the previous step to see local currency bands</div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Children depending on you</div>
+        <select id="children">
+          <option value="0">None</option>
+          <option value="1">1 child</option>
+          <option value="2" selected>2 children</option>
+          <option value="3">3 or more children</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Aging parents you support financially</div>
+        <select id="parents">
+          <option value="0">None</option>
+          <option value="1">1 parent</option>
+          <option value="2" selected>2 parents</option>
+          <option value="3">3 or more parents / in-laws</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Outstanding debts (home, car, personal)</div>
+        <select id="debt">
+          <option value="1">— select debt band —</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Child with special needs?</div>
+        <select id="special">
+          <option value="no">No</option>
+          <option value="yes">Yes — Autism, developmental delay or other condition</option>
+        </select>
+        <div class="field-hint">This significantly changes long-term care cost projections</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="go(1)">&larr; Back</button>
+      <button class="btn-primary btn-grow" onclick="go(3)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div id="s3" class="hidden">
+    <div class="card">
+      <div class="card-eyebrow">Step 3 — Your current coverage</div>
+
+      <div class="field">
+        <div class="field-label">Life insurance — total sum assured</div>
+        <select id="life">
+          <option value="1">— select coverage amount —</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Critical illness (CI) coverage</div>
+        <select id="ci">
+          <option value="0">None</option>
+          <option value="1">— select coverage —</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Medical &amp; hospitalisation coverage</div>
+        <select id="medical">
+          <option value="none">None</option>
+          <option value="basic">Basic — employer group policy only</option>
+          <option value="personal" selected>Personal policy with private hospital access</option>
+          <option value="comprehensive">Comprehensive with full rider coverage</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Retirement savings (EPF / CPF / pension)</div>
+        <select id="epf">
+          <option value="low">Low — below 2 years of income saved</option>
+          <option value="mid" selected>Moderate — 2 to 5 years of income saved</option>
+          <option value="good">Good — 5 to 10 years of income saved</option>
+          <option value="strong">Strong — above 10 years of income saved</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Do you have an updated will?</div>
+        <select id="will">
+          <option value="no" selected>No will in place</option>
+          <option value="partial">Partial or outdated will</option>
+          <option value="yes">Yes — current and updated</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Trust or estate plan in place?</div>
+        <select id="estate">
+          <option value="no" selected>No</option>
+          <option value="partial">Partial — some assets covered</option>
+          <option value="yes">Yes — comprehensive plan in place</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="go(2)">&larr; Back</button>
+      <button class="btn-primary btn-grow" onclick="calc()">Calculate my gap &rarr;</button>
+    </div>
+  </div>
+
+  <!-- STEP 4 — RESULTS -->
+  <div id="s4" class="hidden">
+
+    <div id="r-hero" class="result-hero has-gap">
+      <div class="r-eye" id="r-eye">Your protection gap</div>
+      <div class="r-amount" id="r-amt">—</div>
+      <div class="r-sub" id="r-sub">Your family may be underprotected by this amount</div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="m-lbl">Life cover needed</div>
+        <div class="m-val" id="m-life">—</div>
+        <div class="m-st" id="m-life-s"></div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">CI cover needed</div>
+        <div class="m-val" id="m-ci">—</div>
+        <div class="m-st" id="m-ci-s"></div>
+      </div>
+      <div class="metric">
+        <div class="m-lbl">Estate readiness</div>
+        <div class="m-val" id="m-est">—</div>
+        <div class="m-st" id="m-est-s"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-eyebrow">Personalised recommendations</div>
+      <div id="recos"></div>
+    </div>
+
+    <div class="aff-bar">
+      <span>&#128722;</span>
+      <span>Recommended wellness essentials, longevity products and health supplements — available via Watsons, Shopee, Amazon Japan and Rakuten through our trusted partners.</span>
+    </div>
+
+    <!-- Email CTA — dark footer style -->
+    <div class="email-cta-wrap">
+      <div class="email-cta-eyebrow">Private &amp; confidential</div>
+      <div class="email-cta-title">Ready to close your protection gap?</div>
+      <div class="email-cta-sub">Get a personalised consultation with our wellness and financial advisor — guided with care, no pressure, no jargon.</div>
+      <a class="email-btn" id="email-link" href="mailto:hello@caregivercompassai.com">
+        &#9993; &nbsp; Send us an email to book your review
+      </a>
+      <div class="privacy-line">Private &amp; confidential &nbsp;·&nbsp; No obligation &nbsp;·&nbsp; We respond within 24 hours</div>
+    </div>
+
+    <button class="restart-btn" onclick="restart()">&#8635; &nbsp; Start the calculator again</button>
+  </div>
+
+</div>
+
+<!-- Footer — exact site footer style -->
+<div style="max-width:680px;margin:0 auto;padding:0 20px">
+  <div class="calc-footer">
+    <div class="footer-bottom">
+      <a href="https://caregivercompassai.com">caregivercompassai.com</a> &nbsp;·&nbsp; &copy; 2026 CaregiverCompassAI &nbsp;·&nbsp; All rights reserved<br>
+      Supported by AI technology &nbsp;·&nbsp; Private &amp; confidential<br>
+      <span style="opacity:0.6;font-size:10px">This calculator provides general financial guidance only and does not constitute regulated financial advice.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Country config: symbol, name, multiplier vs RM, income bands, debt bands, coverage bands ── */
+var COUNTRIES = {
+  MY: { sym:'RM',   name:'Malaysian Ringgit (RM)',      mult:1,        note:'Figures shown in Malaysian Ringgit (RM)',
+    income:[['Below RM 3,000',3000],['RM 3,000 – 5,000',5000],['RM 5,000 – 10,000',8000],['RM 10,000 – 20,000',15000],['RM 20,000 – 50,000',30000],['Above RM 50,000',70000]],
+    debt:[['None',0],['Below RM 100,000',80000],['RM 100,000 – 500,000',300000],['RM 500,000 – 1,000,000',700000],['Above RM 1,000,000',1500000]],
+    life:[['None / not sure',0],['Below RM 100,000',80000],['RM 100,000 – 500,000',300000],['RM 500,000 – 1,000,000',700000],['Above RM 1,000,000',1500000]],
+    ci:[['None',0],['Below RM 50,000',40000],['RM 50,000 – 250,000',150000],['Above RM 250,000',400000]] },
+  SG: { sym:'S$',  name:'Singapore Dollar (S$)',         mult:0.33,
+    note:'Figures shown in Singapore Dollars (S$)',
+    income:[['Below S$ 1,000',1000],['S$ 1,000 – 2,000',1500],['S$ 2,000 – 4,000',3000],['S$ 4,000 – 8,000',6000],['S$ 8,000 – 20,000',12000],['Above S$ 20,000',25000]],
+    debt:[['None',0],['Below S$ 50,000',30000],['S$ 50,000 – 200,000',120000],['S$ 200,000 – 500,000',350000],['Above S$ 500,000',700000]],
+    life:[['None / not sure',0],['Below S$ 50,000',30000],['S$ 50,000 – 200,000',120000],['S$ 200,000 – 500,000',350000],['Above S$ 500,000',700000]],
+    ci:[['None',0],['Below S$ 25,000',15000],['S$ 25,000 – 100,000',60000],['Above S$ 100,000',150000]] },
+  JP: { sym:'¥',   name:'Japanese Yen (¥)',              mult:0.029,
+    note:'Figures shown in Japanese Yen (¥)',
+    income:[['Below ¥ 150,000',100000],['¥ 150,000 – 300,000',220000],['¥ 300,000 – 600,000',450000],['¥ 600,000 – 1,200,000',900000],['¥ 1,200,000 – 3,000,000',2000000],['Above ¥ 3,000,000',4000000]],
+    debt:[['None',0],['Below ¥ 5,000,000',3000000],['¥ 5M – 20M',12000000],['¥ 20M – 50M',35000000],['Above ¥ 50M',70000000]],
+    life:[['None / not sure',0],['Below ¥ 5,000,000',3000000],['¥ 5M – 20M',12000000],['¥ 20M – 50M',35000000],['Above ¥ 50M',70000000]],
+    ci:[['None',0],['Below ¥ 2,000,000',1000000],['¥ 2M – 10M',6000000],['Above ¥ 10M',15000000]] },
+  ID: { sym:'Rp',  name:'Indonesian Rupiah (Rp)',        mult:345,
+    note:'Figures shown in Indonesian Rupiah (Rp)',
+    income:[['Below Rp 3,000,000',2000000],['Rp 3M – 6M',4500000],['Rp 6M – 15M',10000000],['Rp 15M – 30M',22000000],['Rp 30M – 80M',55000000],['Above Rp 80M',100000000]],
+    debt:[['None',0],['Below Rp 100M',70000000],['Rp 100M – 500M',300000000],['Rp 500M – 1.5B',1000000000],['Above Rp 1.5B',2500000000]],
+    life:[['None / not sure',0],['Below Rp 100M',70000000],['Rp 100M – 500M',300000000],['Rp 500M – 1.5B',1000000000],['Above Rp 1.5B',2500000000]],
+    ci:[['None',0],['Below Rp 50M',30000000],['Rp 50M – 300M',150000000],['Above Rp 300M',500000000]] },
+  PH: { sym:'₱',   name:'Philippine Peso (₱)',           mult:4.7,
+    note:'Figures shown in Philippine Peso (₱)',
+    income:[['Below ₱ 15,000',10000],['₱ 15,000 – 30,000',22000],['₱ 30,000 – 80,000',55000],['₱ 80,000 – 200,000',140000],['₱ 200,000 – 500,000',350000],['Above ₱ 500,000',700000]],
+    debt:[['None',0],['Below ₱ 500,000',300000],['₱ 500K – 2M',1200000],['₱ 2M – 5M',3500000],['Above ₱ 5M',7000000]],
+    life:[['None / not sure',0],['Below ₱ 500,000',300000],['₱ 500K – 2M',1200000],['₱ 2M – 5M',3500000],['Above ₱ 5M',7000000]],
+    ci:[['None',0],['Below ₱ 200,000',120000],['₱ 200K – 1M',600000],['Above ₱ 1M',1500000]] },
+  KR: { sym:'₩',   name:'Korean Won (₩)',                mult:9.2,
+    note:'Figures shown in Korean Won (₩)',
+    income:[['Below ₩ 1,500,000',1000000],['₩ 1.5M – 3M',2200000],['₩ 3M – 7M',5000000],['₩ 7M – 15M',11000000],['₩ 15M – 40M',27000000],['Above ₩ 40M',55000000]],
+    debt:[['None',0],['Below ₩ 30M',20000000],['₩ 30M – 150M',90000000],['₩ 150M – 400M',280000000],['Above ₩ 400M',600000000]],
+    life:[['None / not sure',0],['Below ₩ 30M',20000000],['₩ 30M – 150M',90000000],['₩ 150M – 400M',280000000],['Above ₩ 400M',600000000]],
+    ci:[['None',0],['Below ₩ 15M',10000000],['₩ 15M – 80M',50000000],['Above ₩ 80M',120000000]] },
+  CN: { sym:'¥',   name:'Chinese Yuan (¥ CNY)',          mult:0.59,
+    note:'Figures shown in Chinese Yuan (¥ CNY)',
+    income:[['Below ¥ 3,000',2000],['¥ 3,000 – 6,000',4500],['¥ 6,000 – 15,000',10000],['¥ 15,000 – 30,000',22000],['¥ 30,000 – 80,000',55000],['Above ¥ 80,000',100000]],
+    debt:[['None',0],['Below ¥ 100,000',70000],['¥ 100K – 500K',300000],['¥ 500K – 1.5M',1000000],['Above ¥ 1.5M',2500000]],
+    life:[['None / not sure',0],['Below ¥ 100,000',70000],['¥ 100K – 500K',300000],['¥ 500K – 1.5M',1000000],['Above ¥ 1.5M',2500000]],
+    ci:[['None',0],['Below ¥ 50,000',30000],['¥ 50K – 300K',150000],['Above ¥ 300K',500000]] },
+  HK: { sym:'HK$', name:'Hong Kong Dollar (HK$)',        mult:0.34,
+    note:'Figures shown in Hong Kong Dollars (HK$)',
+    income:[['Below HK$ 8,000',5000],['HK$ 8,000 – 15,000',11000],['HK$ 15,000 – 40,000',27000],['HK$ 40,000 – 80,000',60000],['HK$ 80,000 – 200,000',140000],['Above HK$ 200,000',280000]],
+    debt:[['None',0],['Below HK$ 500,000',300000],['HK$ 500K – 2M',1200000],['HK$ 2M – 5M',3500000],['Above HK$ 5M',7000000]],
+    life:[['None / not sure',0],['Below HK$ 500,000',300000],['HK$ 500K – 2M',1200000],['HK$ 2M – 5M',3500000],['Above HK$ 5M',7000000]],
+    ci:[['None',0],['Below HK$ 200,000',120000],['HK$ 200K – 1M',600000],['Above HK$ 1M',1500000]] },
+  TW: { sym:'NT$', name:'New Taiwan Dollar (NT$)',       mult:0.84,
+    note:'Figures shown in New Taiwan Dollars (NT$)',
+    income:[['Below NT$ 25,000',18000],['NT$ 25,000 – 50,000',37000],['NT$ 50,000 – 120,000',85000],['NT$ 120,000 – 250,000',185000],['NT$ 250,000 – 650,000',450000],['Above NT$ 650,000',900000]],
+    debt:[['None',0],['Below NT$ 1,000,000',700000],['NT$ 1M – 5M',3000000],['NT$ 5M – 15M',10000000],['Above NT$ 15M',20000000]],
+    life:[['None / not sure',0],['Below NT$ 1,000,000',700000],['NT$ 1M – 5M',3000000],['NT$ 5M – 15M',10000000],['Above NT$ 15M',20000000]],
+    ci:[['None',0],['Below NT$ 500,000',300000],['NT$ 500K – 2.5M',1500000],['Above NT$ 2.5M',4000000]] }
+};
+
+var cur = 1;
+
+function getCfg() { return COUNTRIES[document.getElementById('country').value] || COUNTRIES.MY; }
+
+function fmtLocal(n) {
+  var cfg = getCfg();
+  var sym = cfg.sym;
+  var abs = Math.abs(Math.round(n));
+  var formatted;
+  if (abs >= 1000000000) formatted = sym + ' ' + (abs/1000000000).toFixed(1).replace(/\.0$/,'') + 'B';
+  else if (abs >= 1000000) formatted = sym + ' ' + (abs/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+  else if (abs >= 1000) formatted = sym + ' ' + Math.round(abs/1000) + 'K';
+  else formatted = sym + ' ' + abs.toLocaleString();
+  return (n < 0 ? '-' : '') + formatted;
+}
+
+function populateSelect(id, pairs, selectedIndex) {
+  var sel = document.getElementById(id);
+  sel.innerHTML = '';
+  pairs.forEach(function(p, i) {
+    var opt = document.createElement('option');
+    opt.value = p[1];
+    opt.textContent = p[0];
+    if (i === (selectedIndex !== undefined ? selectedIndex : Math.floor(pairs.length/2))) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function updateCurrencyHints() {
+  var cfg = getCfg();
+  document.getElementById('curr-note').textContent = '\uD83D\uDCB0 Figures shown in ' + cfg.note.replace('Figures shown in ','');
+  document.getElementById('income-hint').textContent = 'All figures in ' + cfg.name;
+  populateSelect('income', cfg.income, 2);
+  populateSelect('debt', cfg.debt, 2);
+  populateSelect('life', cfg.life, 2);
+  var ciPairs = [['None',0]].concat(cfg.ci.filter(function(p){return p[1]>0;}));
+  populateSelect('ci', ciPairs, 2);
+}
+
+function go(n) {
+  if (n === 2) updateCurrencyHints();
+  document.getElementById('s'+cur).classList.add('hidden');
+  document.getElementById('s'+n).classList.remove('hidden');
+  cur = n;
+  document.getElementById('prog').style.width = (n/4*100)+'%';
+  ['pl1','pl2','pl3','pl4'].forEach(function(id,i){
+    var el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if(i+1===n) el.classList.add('active');
+    else if(i+1<n) el.classList.add('done');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function calc() {
+  var cfg      = getCfg();
+  var sym      = cfg.sym;
+  var income   = parseFloat(document.getElementById('income').value);
+  var children = parseInt(document.getElementById('children').value);
+  var parents  = parseInt(document.getElementById('parents').value);
+  var debt     = parseFloat(document.getElementById('debt').value);
+  var special  = document.getElementById('special').value;
+  var life     = parseFloat(document.getElementById('life').value);
+  var ci       = parseFloat(document.getElementById('ci').value);
+  var medical  = document.getElementById('medical').value;
+  var epf      = document.getElementById('epf').value;
+  var will     = document.getElementById('will').value;
+  var estate   = document.getElementById('estate').value;
+  var emp      = document.getElementById('emp').value;
+
+  var m = cfg.mult; // local units per RM
+
+  var lifeNeeded = (income*12*10) + (children*120000*m) + (parents*90000*m) + debt;
+  if (special==='yes') lifeNeeded += 300000*m;
+  var ciNeeded = income*12*5;
+  var lifeGap = Math.max(0, lifeNeeded-life);
+  var ciGap   = Math.max(0, ciNeeded-ci);
+
+  var medScore  = {none:3,basic:2,personal:1,comprehensive:0}[medical]||0;
+  var epfScore  = {low:3,mid:2,good:1,strong:0}[epf]||0;
+  var willScore = {no:2,partial:1,yes:0}[will]||0;
+  var estScore  = {no:2,partial:1,yes:0}[estate]||0;
+
+  var totalGap = lifeGap+ciGap+(medScore*60000*m)+(epfScore*40000*m)+(willScore*25000*m)+(estScore*30000*m);
+
+  var hero=document.getElementById('r-hero');
+  document.getElementById('r-amt').textContent = fmtLocal(totalGap);
+  if(totalGap<80000*m){
+    hero.className='result-hero protected';
+    document.getElementById('r-eye').textContent='Your protection position';
+    document.getElementById('r-sub').textContent='You are relatively well protected. A review can help optimise your coverage further.';
+  } else {
+    hero.className='result-hero has-gap';
+    document.getElementById('r-eye').textContent='Your protection gap';
+    document.getElementById('r-sub').textContent='Your family may be underprotected by this amount. A personalised review with our team is recommended.';
+  }
+
+  document.getElementById('m-life').textContent = fmtLocal(lifeNeeded);
+  var ls=document.getElementById('m-life-s');
+  if(life>=lifeNeeded){ls.textContent='Adequate';ls.className='m-st st-ok';}
+  else if(life>=lifeNeeded*0.6){ls.textContent='Partial gap';ls.className='m-st st-warn';}
+  else{ls.textContent='Significant gap';ls.className='m-st st-risk';}
+
+  document.getElementById('m-ci').textContent = fmtLocal(ciNeeded);
+  var cs=document.getElementById('m-ci-s');
+  if(ci>=ciNeeded){cs.textContent='Adequate';cs.className='m-st st-ok';}
+  else if(ci>=ciNeeded*0.5){cs.textContent='Partial gap';cs.className='m-st st-warn';}
+  else{cs.textContent='Underprotected';cs.className='m-st st-risk';}
+
+  var ev=document.getElementById('m-est'), es=document.getElementById('m-est-s');
+  if(will==='yes'&&estate==='yes'){ev.textContent='Well planned';es.textContent='Good';es.className='m-st st-ok';}
+  else if(will==='partial'||estate==='partial'){ev.textContent='Needs review';es.textContent='Update needed';es.className='m-st st-warn';}
+  else{ev.textContent='Not in place';es.textContent='Action needed';es.className='m-st st-risk';}
+
+  var recs=[];
+  if(lifeGap>0) recs.push({icon:'&#128737;',title:'Increase life coverage by '+fmtLocal(lifeGap),
+    desc:'Based on your income, dependants and debts, your family needs '+fmtLocal(lifeNeeded)+' in life coverage. Your current coverage leaves a gap of '+fmtLocal(lifeGap)+'.',tag:'tag-p',tagTxt:'Priority'});
+  if(ciGap>0) recs.push({icon:'&#10084;',title:'Add critical illness cover — '+fmtLocal(ciGap)+' shortfall',
+    desc:'1 in 4 Asians will face a critical illness before 65. Without adequate CI coverage, a diagnosis can drain your family\'s savings within 12 months.',tag:'tag-p',tagTxt:'Priority'});
+  if(medical==='none'||medical==='basic') recs.push({icon:'&#127973;',title:'Upgrade to private hospital medical coverage',
+    desc:'Employer group coverage excludes pre-existing conditions. A personal medical card ensures your family has access to the best care when it matters most.',tag:'tag-p',tagTxt:'Priority'});
+  if(will==='no') recs.push({icon:'&#128196;',title:'Draft a will and update your beneficiary nominations',
+    desc:'Without a will, your assets can be legally frozen for years. Your dependants may face delays at the moment they need funds most.',tag:'tag-i',tagTxt:'Important'});
+  if(estate==='no') recs.push({icon:'&#127968;',title:'Consider a family trust or estate plan',
+    desc:'A trust protects assets across generations and ensures your wealth reaches the right people — including aging parents and children with special needs.',tag:'tag-i',tagTxt:'Important'});
+  if(epf==='low'||epf==='mid') recs.push({icon:'&#128200;',title:'Bridge your retirement savings gap',
+    desc:'Retirement savings alone may not be sufficient for the retirement you want. A structured investment or pension plan started now can meaningfully change your retirement outcome.',tag:'tag-i',tagTxt:'Important'});
+  if(emp==='self') recs.push({icon:'&#128188;',title:'Income replacement coverage — essential for self-employed',
+    desc:'As a self-employed individual, you have no employer safety net. A disability income or business continuation plan protects your family if you are unable to work.',tag:'tag-p',tagTxt:'Priority'});
+  if(parents>1) recs.push({icon:'&#127800;',title:'Plan for elder care costs — Japan or '+cfg.name.split(' ')[cfg.name.split(' ').length-1].replace(/[()]/g,'')+' options',
+    desc:'Private elder care costs can reach '+fmtLocal(8000*m)+'/month locally and more in Japan. Modelling this cost now prevents a family financial crisis later.',tag:'tag-r',tagTxt:'Plan ahead'});
+  if(special==='yes') recs.push({icon:'&#127775;',title:'Long-term care fund for your child with special needs',
+    desc:'Children with Autism or developmental conditions require lifelong financial planning. A dedicated trust and care fund — structured now — protects them beyond your lifetime.',tag:'tag-p',tagTxt:'Priority'});
+
+  document.getElementById('recos').innerHTML=recs.map(function(r){
+    return '<div class="reco"><div class="reco-icon">'+r.icon+'</div><div>'+
+      '<div class="reco-title">'+r.title+'</div>'+
+      '<div class="reco-desc">'+r.desc+'</div>'+
+      '<span class="reco-tag '+r.tag+'">'+r.tagTxt+'</span></div></div>';
+  }).join('');
+
+  document.getElementById('email-link').href =
+    'mailto:hello@caregivercompassai.com?subject='+
+    encodeURIComponent('Financial Calculator — Gap: '+fmtLocal(totalGap)+' — Private Review Request')+
+    '&body='+encodeURIComponent(
+      'Dear CaregiverCompassAI,\n\nI just completed the Financial Calculator on your website.\n\n'+
+      'Country: '+document.getElementById('country').value+'\n'+
+      'My protection gap: '+fmtLocal(totalGap)+'\n\n'+
+      'I would love to book a free private review with your team.\n\nThank you.'
+    );
+  go(4);
+}
+
+function restart(){
+  document.getElementById('age').value=35;
+  document.getElementById('age-v').textContent='35';
+  go(1);
+}
+
+// Initialise currency dropdowns on load
+window.addEventListener('DOMContentLoaded', updateCurrencyHints);
+</script>
+</body>
+</html>

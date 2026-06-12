@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaregiverCompassAI — 引導照顧者。守護愛。</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF8F3;
+    --warm-white: #FAF6F0;
+    --terracotta: #C17A3A;
+    --terracotta-dark: #9E5F24;
+    --brown: #3D2B1F;
+    --brown-mid: #7B4F2E;
+    --brown-light: #7B6B60;
+    --green: #2D5016;
+    --green-light: #4A7C28;
+    --border: rgba(193,122,58,0.18);
+    --shadow: rgba(61,43,31,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--brown); }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; background: rgba(253,248,243,0.97);
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .lang-switcher { display: flex; align-items: center; gap: 4px; }
+  .lang-btn { font-size: 12px; color: var(--brown-light); text-decoration: none; padding: 4px 8px; border-radius: 12px; letter-spacing: 0.5px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .lang-btn:hover { color: var(--terracotta); background: rgba(193,122,58,0.08); }
+  .lang-btn.active { color: var(--terracotta); font-weight: 600; }
+  .lang-divider { color: rgba(193,122,58,0.3); font-size: 11px; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img { height: 72px; width: auto; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.2; }
+  .nav-logo-text span { color: var(--terracotta); }
+  .nav-tagline { font-size: 10px; color: var(--brown-light); letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brown); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .lang { font-size: 11px; color: var(--brown-light); cursor: pointer; }
+  .btn-nav { background: var(--terracotta); color: #fff; font-size: 12px; padding: 10px 20px; border-radius: 24px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.3px; transition: background 0.2s; text-decoration: none; }
+  .btn-nav:hover { background: var(--terracotta-dark); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; max-height: 700px; overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+    background: var(--cream);
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--terracotta); }
+  .hero-eyebrow-text { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); }
+  .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 400; line-height: 1.15; color: var(--brown); margin-bottom: 20px; }
+  .hero-h1 em { color: var(--terracotta); font-style: italic; }
+  .hero-sub { font-size: 17px; color: var(--brown-light); line-height: 1.75; margin-bottom: 36px; max-width: 420px; font-weight: 300; }
+  .hero-sub strong { color: var(--brown); font-weight: 500; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-solid { background: var(--terracotta); color: #fff; font-size: 15px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-solid:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--brown); font-size: 15px; padding: 13px 28px; border-radius: 28px; border: 1.5px solid var(--brown); cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { width: 100%; height: 100%; max-height: 700px; object-fit: cover; object-position: center top; }
+
+  /* FEATURES BAR */
+  .features-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+  .feat {
+    padding: 28px 24px; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .feat:last-child { border-right: none; background: var(--warm-white); }
+  .feat-icon { font-size: 22px; margin-bottom: 4px; }
+  .feat-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.3; }
+  .feat-desc { font-size: 14px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+  .feat-quote { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown-mid); line-height: 1.5; }
+
+  /* ABOUT SECTION */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-height: 380px; overflow: hidden; }
+  .about-img { overflow: hidden; }
+  .about-img img { width: 100%; height: 380px; object-fit: cover; object-position: center; }
+  .about-content { padding: 48px 56px; background: var(--warm-white); display: flex; flex-direction: column; justify-content: center; }
+  .section-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--terracotta); }
+  .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); line-height: 1.3; margin-bottom: 20px; }
+  .section-h2 em { color: var(--terracotta); font-style: italic; }
+  .section-body { font-size: 16px; color: var(--brown-light); line-height: 1.85; margin-bottom: 28px; font-weight: 300; }
+  .btn-link { font-size: 13px; color: var(--terracotta); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; letter-spacing: 0.3px; transition: gap 0.2s; }
+  .btn-link:hover { gap: 10px; }
+
+  /* NOURISH / GOLF SECTION */
+  .nourish { background: var(--cream); }
+  .nourish-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; }
+  .nourish-header { text-align: center; margin-bottom: 56px; }
+  .nourish-header .section-tag { justify-content: center; }
+  .nourish-header .section-tag::before { display: none; }
+  .nourish-h2 { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; color: var(--brown); line-height: 1.25; margin-bottom: 16px; }
+  .nourish-h2 em { color: var(--terracotta); font-style: italic; }
+  .nourish-sub { font-size: 17px; color: var(--brown-light); max-width: 580px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+  .nourish-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
+  .nourish-img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
+  .nourish-img-wrap img { width: 100%; height: 560px; object-fit: cover; object-position: center; }
+  .nourish-img-badge {
+    position: absolute; bottom: 24px; left: 24px;
+    background: rgba(253,248,243,0.96); backdrop-filter: blur(8px);
+    padding: 14px 20px; border-radius: 12px; border: 1px solid var(--border);
+  }
+  .nourish-img-badge p { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown); }
+  .nourish-img-badge span { font-size: 11px; color: var(--terracotta); letter-spacing: 0.5px; }
+  .nourish-points { display: flex; flex-direction: column; gap: 24px; }
+  .nourish-point { display: flex; gap: 18px; align-items: flex-start; }
+  .nourish-point-icon { width: 44px; height: 44px; min-width: 44px; background: rgba(193,122,58,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .nourish-point-text h4 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--brown); margin-bottom: 4px; }
+  .nourish-point-text p { font-size: 15px; color: var(--brown-light); line-height: 1.65; font-weight: 300; }
+  .nourish-cta { margin-top: 32px; }
+
+  /* SERVICES CARDS */
+  .services { background: #fff; padding: 56px 48px; }
+  .services-header { text-align: center; margin-bottom: 48px; }
+  .services-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .service-card { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s; }
+  .service-card:hover { transform: translateY(-6px); }
+  .service-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .service-card-body { padding: 18px 16px 20px; background: var(--warm-white); }
+  .service-card-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--brown); margin-bottom: 6px; }
+  .service-card-desc { font-size: 13px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+
+  /* JAPAN SECTION */
+  .japan { position: relative; overflow: hidden; }
+  .japan-bg { width: 100%; height: 600px; object-fit: cover; object-position: center; display: block; }
+  .japan-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(61,43,31,0.82) 0%, rgba(61,43,31,0.4) 55%, rgba(61,43,31,0.1) 100%);
+    display: flex; align-items: center;
+  }
+  .japan-content { padding: 40px 64px; max-width: 580px; }
+  .japan-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .japan-tag::before { content: ''; width: 30px; height: 1px; background: rgba(255,255,255,0.5); }
+  .japan-h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+  .japan-h2 em { color: #F2C98A; font-style: italic; }
+  .japan-body { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 18px; font-weight: 300; }
+  .japan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .japan-pill { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
+  .btn-japan { background: var(--terracotta); color: #fff; font-size: 13px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+  .btn-japan:hover { background: var(--terracotta-dark); }
+  .japan-stats { display: flex; gap: 32px; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .japan-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #F2C98A; font-weight: 400; }
+  .japan-stat-label { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; line-height: 1.4; }
+
+  /* EMAIL SECTION */
+  .email-section { background: var(--warm-white); padding: 80px 48px; }
+  .email-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+  .email-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); margin-bottom: 14px; }
+  .email-sub { font-size: 16px; color: var(--brown-light); line-height: 1.75; margin-bottom: 32px; font-weight: 300; }
+  .email-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto 16px; }
+  .email-form input { flex: 1; padding: 13px 20px; border: 1.5px solid var(--border); border-radius: 28px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: #fff; color: var(--brown); outline: none; transition: border-color 0.2s; }
+  .email-form input:focus { border-color: var(--terracotta); }
+  .email-note { font-size: 11px; color: var(--brown-light); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+  /* FOOTER */
+  footer { background: var(--brown); color: rgba(255,255,255,0.75); padding: 56px 48px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
+  .footer-brand img { height: 60px; filter: none; margin-bottom: 14px; display: block; border-radius: 8px; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; margin-bottom: 12px; }
+  .footer-brand-name span { color: #F2C98A; }
+  .footer-desc { font-size: 15px; line-height: 1.75; font-weight: 300; max-width: 260px; }
+  .footer-heading { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #F2C98A; margin-bottom: 18px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 15px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: #fff; }
+  .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+  .footer-social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.2s; }
+  .footer-social a:hover { border-color: #F2C98A; color: #F2C98A; }
+  .footer-brand { display: flex; flex-direction: column; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 300px; }
+    .hero-left { padding: 48px 24px; }
+    .hero-h1 { font-size: 36px; }
+    .features-bar { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .nourish-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .japan-content { padding: 0 32px; }
+    .japan-h2 { font-size: 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+
+
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="CaregiverCompassAI Logo">
+    <div>
+      <div class="nav-logo-text">Caregiver Compass <span>AI</span></div>
+      <div class="nav-tagline">Regenerate. Rejuvenate. Reconnect.</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">首頁</a></li>
+    <li><a href="#about">關於我們</a></li>
+    <li><a href="#journey">旅程</a></li>
+    <li><a href="#contact">聯絡我們</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="index.html" class="lang-btn">EN</a>
+      <span class="lang-divider">|</span>
+      <a href="index-bm.html" class="lang-btn">BM</a>
+      <span class="lang-divider">|</span>
+      <a href="index-zh.html" class="lang-btn active">中文</a>
+      <span class="lang-divider">|</span>
+      <a href="index-jp.html" class="lang-btn">JP</a>
+    </div>
+    <a href="mailto:hello@caregivercompassai.com?subject=獲取指導 — CaregiverCompassAI&body=親愛的CaregiverCompassAI團隊,%0D%0A%0D%0A我希望為我的家人獲取指導。%0D%0A%0D%0A謝謝您。" class="btn-nav">獲取指導 ♡</a>
+  </div>
+  </nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">以愛守護，滋養生命。</span>
+    </div>
+    <h1 class="hero-h1">引導照顧者。<br>守護愛。<br>共建<em>更美好的明天。</em></h1>
+    <p class="hero-sub">
+      引導亞洲家庭好好生活、優雅老去，並創造跨越世代、永久珍藏的美好回憶。
+    </p>
+    <div class="hero-btns">
+      <a href="mailto:hello@caregivercompassai.com?subject=You Are Not Alone — I need support&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI am reaching out because I need support with caregiving for my loved one.%0D%0A%0D%0APlease contact me at your earliest convenience.%0D%0A%0D%0AWith warmth," class="btn-solid">您並不孤單 ♡</a>
+      <a href="#about" class="btn-outline">我們的故事 →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="hero-family.png" alt="Three generations of Asian family — grandmother, mother and daughter sharing a joyful moment">
+  </div>
+</section>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="feat">
+    <div class="feat-icon">🤲</div>
+    <div class="feat-title">照護與長壽</div>
+    <p class="feat-desc">為那些全心付出的照顧者，以及值得最好照顧的長者 — 以同理心為您的家庭提供個人化引導，共同走過老齡化、認知症與長者照護的旅程。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🌸</div>
+    <div class="feat-title">生育與再生健康</div>
+    <p class="feat-desc">壓力。荷爾蒙。生育力。它們的關聯比您想像的更深。我們以關愛與清晰，引導您從荷爾蒙健康走向生殖健康。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">⛩️</div>
+    <div class="feat-title">日本醫療旅遊</div>
+    <p class="feat-desc">將日本最精緻的療癒，輕柔地帶給您的家人 — 以您的語言，按您的節奏。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🏥</div>
+    <div class="feat-title">馬來西亞醫療與健康</div>
+    <p class="feat-desc">醫療保健與健康指導 — 以溫暖、關懷和文化理解，為您聯繫馬來西亞合適的專科醫生、醫院和度假村。</p>
+  </div>
+</div>
+
+<!-- ABOUT / CARING HANDS -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="about-tea.png" alt="Warm cozy tea set — a moment of rest and comfort for caregivers">
+  </div>
+  <div class="about-content">
+    <div class="section-tag">歡迎來到 Caregiver Compass AI</div>
+    <h2 class="section-h2">照護與慈悲、文化相遇，共創<em>更光明的明天。</em></h2>
+    <p class="section-body">與家人共同創造的回憶，無法被購買、替代或奪走。我們在這裡幫助您的家庭充實地生活、深情地照顧，並珍視每一個寶貴時刻 — 跨越每一個世代。</p>
+    <a href="#journey" class="btn-link">了解更多我們的故事 →</a>
+  </div>
+</section>
+
+<!-- NOURISH / GOLF WELLNESS SECTION -->
+<section class="nourish" id="journey">
+  <div class="nourish-inner">
+    <div class="nourish-header">
+      <div class="section-tag">滋養身體。更新心靈。提升生命。</div>
+      <h2 class="nourish-h2">高爾夫作為<em>長壽練習</em> —<br>運動、自然與正念。</h2>
+      <p class="nourish-sub">從馬來西亞鬱鬱蔥蔥的高地球場到日本令人嘆為觀止的海景球場 — 高爾夫不只是一項運動。它是穿越自然的行走冥想，恢復身體活力，平靜心靈，為您的生命增添歲月。</p>
+    </div>
+    <div class="nourish-grid">
+      <div class="nourish-img-wrap">
+        <img src="golf-japan.png" alt="Joyful Asian family enjoying golf at a scenic Japan resort overlooking the ocean — active longevity and wellness">
+        <div class="nourish-img-badge">
+          <p>"每一步踏在綠茵上，都是邁向百歲的一步。"</p>
+          <span>積極長壽 • 日本健康</span>
+        </div>
+      </div>
+      <div class="nourish-points">
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🚶</div>
+          <div class="nourish-point-text">
+            <h4>步行即良藥</h4>
+            <p>18洞 = 在大自然中輕鬆步行8–10公里。研究顯示，定期打高爾夫球的人平均壽命多5年 — 新鮮空氣、運動和綠意都是療癒的。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🧠</div>
+          <div class="nourish-point-text">
+            <h4>動中正念</h4>
+            <p>高爾夫需要專注、平靜與臨在 — 一種動態冥想，能降低皮質醇、鍛煉思維並跨越世代建立情緒韌性。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">👨‍👩‍👧</div>
+          <div class="nourish-point-text">
+            <h4>家庭與聯繫</h4>
+            <p>在球場上共度的時光深化了世代之間的聯繫。在日本打高爾夫球，為家庭提供了一種有意義、充滿喜悅的方式，透過健康和自然重新連結。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">⛩️</div>
+          <div class="nourish-point-text">
+            <h4>日本秀麗球場</h4>
+            <p>人生中最珍貴的對話，往往發生在高爾夫球場上。在日本，被令人窒息的美景與寧靜自然所環繞 — 每一輪球賽都將成為您的家人和最親密夥伴永遠銘記的回憶。</p>
+          </div>
+        </div>
+        <div class="nourish-cta">
+          <a href="mailto:hello@caregivercompassai.com?subject=Japan Golf Wellness Journey Enquiry&body=Dear CaregiverCompassAI,%0D%0A%0D%0AI am interested in learning more about your Japan Golf Wellness Journey.%0D%0A%0D%0APlease send me more details.%0D%0A%0D%0AThank you." class="btn-solid">查詢日本高爾夫健康旅程 ✉</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="resources">
+  <div class="services-header">
+    <div class="section-tag" style="justify-content:center;">我們的照護支柱</div>
+    <h2 class="section-h2" style="font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:400; margin-bottom:0;">您的家庭所需一切，盡在一個充滿愛的空間。</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="hands.png" alt="Compassionate hands — caregiver support and care">
+      <div class="service-card-body">
+        <div class="service-card-title">照顧者支援</div>
+        <p class="service-card-desc">照顧是最偉大的愛的行為之一。我們在這裡支持您的心，減輕您的負擔，在這段旅程的每一天引導您的腳步。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="longevity.png" alt="Longevity and brain health">
+      <div class="service-card-body">
+        <div class="service-card-title">長壽與腦部健康</div>
+        <p class="service-card-desc">從日本長壽秘訣汲取靈感 — 生き甲斐、森林浴與正念生活。引導您走向更敏銳的思維、更平靜的心靈，以及更長久、更有意義的人生。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="fertility.png" alt="Fertility and regenerative wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">生育與再生健康</div>
+        <p class="service-card-desc">成為父母的旅程是非常個人的。我們珍視每一個步驟 — 支持您的荷爾蒙健康，恢復您的活力，以關懷、希望和再生引導陪伴您同行。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="wellness.png" alt="Rejuvenative therapy">
+      <div class="service-card-body">
+        <div class="service-card-title">回春療法</div>
+        <p class="service-card-desc">想像吸入柏樹林的空氣，浸泡在礦泉水中，在少做一點的藝術中找到寧靜。日本古老的健康智慧，輕柔地帶給您 — 讓身體、心靈和靈魂真正休息和癒合。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="financial.png" alt="Financial wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">財務健康</div>
+        <p class="service-card-desc">從保險保障到長者照護與醫療費用 — 我們幫助您的家庭為每一個世代做好規劃，毫無負擔。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPAN SECTION -->
+<section class="japan" id="contact">
+  <img src="japan.png" alt="Japan cherry blossom pagoda Mt Fuji — medical wellness tourism" class="japan-bg">
+  <div class="japan-overlay">
+    <div class="japan-content">
+      <div class="japan-tag">我們的特色服務</div>
+      <h2 class="japan-h2">日本的療癒與眾不同。讓我們將其<em>古老智慧、再生健康</em>與長壽秘密帶回家 — 帶給您的家人。</h2>
+      <p class="japan-body">數百年來，日本一直守護著長壽、有意義且充滿回憶的生活秘密。我們陪伴亞洲家庭 — 以您的語言、以耐心和真心，引導您療癒旅程的每一步。</p>
+      <div class="japan-tags">
+        <span class="japan-pill">再生健康</span>
+        <span class="japan-pill">長壽計劃</span>
+        <span class="japan-pill">高爾夫健康度假</span>
+        <span class="japan-pill">生育支援</span>
+        <span class="japan-pill">飲食、營養與腸道健康</span>
+        <span class="japan-pill">自閉症護理與營養</span>
+        <span class="japan-pill">腦部健康與失智症</span>
+        <span class="japan-pill">免疫修復</span>
+      </div>
+      <a href="mailto:hello@caregivercompassai.com?subject=Japan Wellness Journey Enquiry&body=Dear CaregiverCompassAI,%0D%0A%0D%0AI am interested in learning more about your Japan Wellness Journey.%0D%0A%0D%0APlease contact me with details.%0D%0A%0D%0AThank you." class="btn-japan">開始您的日本健康旅程 ✉</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="email-section" style="background:#1a1410; padding:80px 48px;">
+  <div class="email-inner">
+    <p style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#c4a882; margin-bottom:1rem;">立即開始</p>
+    <h2 class="email-h2" style="color:#f9f7f4; font-style:italic;">「現在正悄悄威脅您家人健康與財富的7件事。」</h2>
+    <p class="email-sub" style="color:rgba(255,255,255,0.6);">參加我們免費3分鐘的家庭健康評估。涵蓋家庭健康5大支柱的個人化見解 — 隨後由我們的團隊提供個人指導。</p>
+    <div style="margin-bottom:1.5rem;">
+      <a href="mailto:hello@caregivercompassai.com?subject=家庭健康評估&body=親愛的CaregiverCompassAI團隊,%0D%0A%0D%0A我想了解我的家庭受到多好的保護。%0D%0A%0D%0A謝謝您。" class="btn-outline" style="color:#f9f7f4; border-color:rgba(255,255,255,0.4); font-size:14px; padding:14px 32px; border-radius:4px;">了解您的家庭受到多好的保護 — 只需3分鐘</a>
+    </div>
+    <p class="email-note" style="color:rgba(255,255,255,0.35);">私密保密 · 為全亞洲家庭個人化 · 以愛引導</p>
+    <p style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:8px; letter-spacing:0.06em;">由AI技術支持 · caregivercompassai.com · © 2026 CaregiverCompassAI</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name" style="margin-top:0;">Caregiver Compass <span>AI</span></div>
+      <p class="footer-desc">Regenerate. Rejuvenate. Reconnect. — 幫助亞洲家庭充實生活、深情照顧，並創造跨越世代、永久珍藏的美好回憶。</p>
+      <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-size:15px; color:rgba(255,255,255,0.75); text-decoration:none; width:fit-content;">
+          <span style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">▶</span>
+          YouTube
+        </a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-size:15px; color:rgba(255,255,255,0.75); text-decoration:none; width:fit-content;">
+          <span style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">in</span>
+          LinkedIn
+        </a>
+        <p style="font-size:13px; color:rgba(255,255,255,0.4); margin:0; padding-left:4px;">小红书 XHS — 即將推出</p>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">快速連結</div>
+      <ul class="footer-links">
+        <li><a href="#home">首頁</a></li>
+        <li><a href="#about">關於我們</a></li>
+        <li><a href="#journey">旅程</a></li>
+        <li><a href="#contact">聯絡我們</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">我們的服務</div>
+      <ul class="footer-links">
+        <li><a href="#">照顧者支援</a></li>
+        <li><a href="#">長壽與腦部健康</a></li>
+        <li><a href="#">生育健康</a></li>
+        <li><a href="#">高爾夫健康度假</a></li>
+        <li><a href="#">自閉症飲食與營養</a></li>
+        <li><a href="#">日本醫療旅遊</a></li>
+        <li><a href="#">財務規劃</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">聯繫我們</div>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@caregivercompassai.com">📧 電郵我們</a></li>
+        <li><a href="#">▶ YouTube</a></li>
+        <li><a href="#">in LinkedIn</a></li>
+        <li style="color:rgba(255,255,255,0.35); font-size:14px; list-style:none;">小红书 XHS — 即將推出</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 CaregiverCompassAI. 版權所有。</span>
+    <span class="footer-copy">caregivercompassai.com</span>
+  </div>
+</footer>
+
+</body>
+</html>

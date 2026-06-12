@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaregiverCompassAI — Guiding caregivers. Honoring love.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF8F3;
+    --warm-white: #FAF6F0;
+    --terracotta: #C17A3A;
+    --terracotta-dark: #9E5F24;
+    --brown: #3D2B1F;
+    --brown-mid: #7B4F2E;
+    --brown-light: #7B6B60;
+    --green: #2D5016;
+    --green-light: #4A7C28;
+    --border: rgba(193,122,58,0.18);
+    --shadow: rgba(61,43,31,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--brown); }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; background: rgba(253,248,243,0.97);
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .lang-switcher { display: flex; align-items: center; gap: 4px; }
+  .lang-btn { font-size: 12px; color: var(--brown-light); text-decoration: none; padding: 4px 8px; border-radius: 12px; letter-spacing: 0.5px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .lang-btn:hover { color: var(--terracotta); background: rgba(193,122,58,0.08); }
+  .lang-btn.active { color: var(--terracotta); font-weight: 600; }
+  .lang-divider { color: rgba(193,122,58,0.3); font-size: 11px; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img { height: 72px; width: auto; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.2; }
+  .nav-logo-text span { color: var(--terracotta); }
+  .nav-tagline { font-size: 10px; color: var(--brown-light); letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brown); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .lang { font-size: 11px; color: var(--brown-light); cursor: pointer; }
+  .btn-nav { background: var(--terracotta); color: #fff; font-size: 12px; padding: 10px 20px; border-radius: 24px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.3px; transition: background 0.2s; text-decoration: none; }
+  .btn-nav:hover { background: var(--terracotta-dark); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; max-height: 700px; overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+    background: var(--cream);
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--terracotta); }
+  .hero-eyebrow-text { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); }
+  .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 400; line-height: 1.15; color: var(--brown); margin-bottom: 20px; }
+  .hero-h1 em { color: var(--terracotta); font-style: italic; }
+  .hero-sub { font-size: 17px; color: var(--brown-light); line-height: 1.75; margin-bottom: 36px; max-width: 420px; font-weight: 300; }
+  .hero-sub strong { color: var(--brown); font-weight: 500; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-solid { background: var(--terracotta); color: #fff; font-size: 15px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-solid:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--brown); font-size: 15px; padding: 13px 28px; border-radius: 28px; border: 1.5px solid var(--brown); cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { width: 100%; height: 100%; max-height: 700px; object-fit: cover; object-position: center top; }
+
+  /* FEATURES BAR */
+  .features-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+  .feat {
+    padding: 28px 24px; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .feat:last-child { border-right: none; background: var(--warm-white); }
+  .feat-icon { font-size: 22px; margin-bottom: 4px; }
+  .feat-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.3; }
+  .feat-desc { font-size: 14px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+  .feat-quote { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown-mid); line-height: 1.5; }
+
+  /* ABOUT SECTION */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-height: 380px; overflow: hidden; }
+  .about-img { overflow: hidden; }
+  .about-img img { width: 100%; height: 380px; object-fit: cover; object-position: center; }
+  .about-content { padding: 48px 56px; background: var(--warm-white); display: flex; flex-direction: column; justify-content: center; }
+  .section-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--terracotta); }
+  .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); line-height: 1.3; margin-bottom: 20px; }
+  .section-h2 em { color: var(--terracotta); font-style: italic; }
+  .section-body { font-size: 16px; color: var(--brown-light); line-height: 1.85; margin-bottom: 28px; font-weight: 300; }
+  .btn-link { font-size: 13px; color: var(--terracotta); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; letter-spacing: 0.3px; transition: gap 0.2s; }
+  .btn-link:hover { gap: 10px; }
+
+  /* NOURISH / GOLF SECTION */
+  .nourish { background: var(--cream); }
+  .nourish-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; }
+  .nourish-header { text-align: center; margin-bottom: 56px; }
+  .nourish-header .section-tag { justify-content: center; }
+  .nourish-header .section-tag::before { display: none; }
+  .nourish-h2 { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; color: var(--brown); line-height: 1.25; margin-bottom: 16px; }
+  .nourish-h2 em { color: var(--terracotta); font-style: italic; }
+  .nourish-sub { font-size: 17px; color: var(--brown-light); max-width: 580px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+  .nourish-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
+  .nourish-img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
+  .nourish-img-wrap img { width: 100%; height: 560px; object-fit: cover; object-position: center; }
+  .nourish-img-badge {
+    position: absolute; bottom: 24px; left: 24px;
+    background: rgba(253,248,243,0.96); backdrop-filter: blur(8px);
+    padding: 14px 20px; border-radius: 12px; border: 1px solid var(--border);
+  }
+  .nourish-img-badge p { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown); }
+  .nourish-img-badge span { font-size: 11px; color: var(--terracotta); letter-spacing: 0.5px; }
+  .nourish-points { display: flex; flex-direction: column; gap: 24px; }
+  .nourish-point { display: flex; gap: 18px; align-items: flex-start; }
+  .nourish-point-icon { width: 44px; height: 44px; min-width: 44px; background: rgba(193,122,58,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .nourish-point-text h4 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--brown); margin-bottom: 4px; }
+  .nourish-point-text p { font-size: 15px; color: var(--brown-light); line-height: 1.65; font-weight: 300; }
+  .nourish-cta { margin-top: 32px; }
+
+  /* SERVICES CARDS */
+  .services { background: #fff; padding: 56px 48px; }
+  .services-header { text-align: center; margin-bottom: 48px; }
+  .services-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .service-card { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s; }
+  .service-card:hover { transform: translateY(-6px); }
+  .service-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .service-card-body { padding: 18px 16px 20px; background: var(--warm-white); }
+  .service-card-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--brown); margin-bottom: 6px; }
+  .service-card-desc { font-size: 13px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+
+  /* JAPAN SECTION */
+  .japan { position: relative; overflow: hidden; }
+  .japan-bg { width: 100%; height: 600px; object-fit: cover; object-position: center; display: block; }
+  .japan-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(61,43,31,0.82) 0%, rgba(61,43,31,0.4) 55%, rgba(61,43,31,0.1) 100%);
+    display: flex; align-items: center;
+  }
+  .japan-content { padding: 40px 64px; max-width: 580px; }
+  .japan-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .japan-tag::before { content: ''; width: 30px; height: 1px; background: rgba(255,255,255,0.5); }
+  .japan-h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+  .japan-h2 em { color: #F2C98A; font-style: italic; }
+  .japan-body { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 18px; font-weight: 300; }
+  .japan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .japan-pill { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
+  .btn-japan { background: var(--terracotta); color: #fff; font-size: 13px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+  .btn-japan:hover { background: var(--terracotta-dark); }
+  .japan-stats { display: flex; gap: 32px; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .japan-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #F2C98A; font-weight: 400; }
+  .japan-stat-label { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; line-height: 1.4; }
+
+  /* EMAIL SECTION */
+  .email-section { background: var(--warm-white); padding: 80px 48px; }
+  .email-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+  .email-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); margin-bottom: 14px; }
+  .email-sub { font-size: 16px; color: var(--brown-light); line-height: 1.75; margin-bottom: 32px; font-weight: 300; }
+  .email-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto 16px; }
+  .email-form input { flex: 1; padding: 13px 20px; border: 1.5px solid var(--border); border-radius: 28px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: #fff; color: var(--brown); outline: none; transition: border-color 0.2s; }
+  .email-form input:focus { border-color: var(--terracotta); }
+  .email-note { font-size: 11px; color: var(--brown-light); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+  /* FOOTER */
+  footer { background: var(--brown); color: rgba(255,255,255,0.75); padding: 56px 48px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
+  .footer-brand img { height: 60px; filter: none; margin-bottom: 14px; display: block; border-radius: 8px; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; margin-bottom: 12px; }
+  .footer-brand-name span { color: #F2C98A; }
+  .footer-desc { font-size: 15px; line-height: 1.75; font-weight: 300; max-width: 260px; }
+  .footer-heading { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #F2C98A; margin-bottom: 18px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 15px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: #fff; }
+  .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+  .footer-social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.2s; }
+  .footer-social a:hover { border-color: #F2C98A; color: #F2C98A; }
+  .footer-brand { display: flex; flex-direction: column; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 300px; }
+    .hero-left { padding: 48px 24px; }
+    .hero-h1 { font-size: 36px; }
+    .features-bar { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .nourish-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .japan-content { padding: 0 32px; }
+    .japan-h2 { font-size: 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+
+
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="CaregiverCompassAI Logo">
+    <div>
+      <div class="nav-logo-text">Caregiver Compass <span>AI</span></div>
+      <div class="nav-tagline">Regenerate. Rejuvenate. Reconnect.</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="javascript:void(0)" onclick="showContactBox()">Contact Us</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="index.html" class="lang-btn active">EN</a>
+      <span class="lang-divider">|</span>
+      <a href="index-bm.html" class="lang-btn">BM</a>
+      <span class="lang-divider">|</span>
+      <a href="index-zh.html" class="lang-btn">中文</a>
+      <span class="lang-divider">|</span>
+      <a href="index-jp.html" class="lang-btn">JP</a>
+    </div>
+
+  </div>
+  </nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Care with compassion. Nourish your life.</span>
+    </div>
+    <h1 class="hero-h1">Guiding caregivers.<br>Honoring love.<br>Building <em>a better tomorrow.</em></h1>
+    <p class="hero-sub">
+      Guiding Asian families to live well, age gracefully and create memories that last — across every generation.
+    </p>
+
+  </div>
+  <div class="hero-right">
+    <img src="hero-family.png" alt="Three generations of Asian family — grandmother, mother and daughter sharing a joyful moment">
+  </div>
+</section>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="feat">
+    <div class="feat-icon">🤲</div>
+    <div class="feat-title">Caregiving &amp; Longevity</div>
+    <p class="feat-desc">For the caregivers who give everything, and the elders who deserve the best — compassionate guidance for families navigating aging, dementia and elder care together.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🌸</div>
+    <div class="feat-title">Fertility &amp; Regenerative Health</div>
+    <p class="feat-desc">Stress. Hormones. Fertility. They're more connected than you think. We guide you from hormonal health to reproductive wellness — with care and clarity.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">⛩️</div>
+    <div class="feat-title">Medical Tourism to Japan</div>
+    <p class="feat-desc">Japan's healthcare and hospitality is among the world's finest. We guide your family through health screenings, specialist care and wellness programmes — in your language, with patience, warmth and heart.</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🏥</div>
+    <div class="feat-title">Malaysia Medical &amp; Wellness</div>
+    <p class="feat-desc">Healthcare and wellness guidance — connecting you to the right specialists, hospitals and retreats in Malaysia, with warmth, care and cultural understanding.</p>
+  </div>
+</div>
+
+<!-- ABOUT / CARING HANDS -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="about-tea.png" alt="Warm cozy tea set — a moment of rest and comfort for caregivers">
+  </div>
+  <div class="about-content">
+    <div class="section-tag">Welcome to Caregiver Compass AI</div>
+    <h2 class="section-h2">Where caregiving meets compassion, culture, and <em>a brighter tomorrow.</em></h2>
+    <p class="section-body">The memories we create with our families cannot be bought, replaced or taken away. We are here to help your family live fully, care deeply and treasure every precious moment — across every generation.</p>
+
+  </div>
+</section>
+
+<!-- NOURISH / GOLF WELLNESS SECTION -->
+<section class="nourish" id="journey">
+  <div class="nourish-inner">
+    <div class="nourish-header">
+      <div class="section-tag">Nourish the body. Renew the mind. Elevate life.</div>
+      <h2 class="nourish-h2">Golf as a <em>longevity practice</em> —<br>movement, nature &amp; mindfulness.</h2>
+      <p class="nourish-sub">From Malaysia's lush highland fairways to Japan's breathtaking ocean-view courses — golf is more than a game. It is a walking meditation through nature that restores the body, calms the mind and adds years to your life.</p>
+    </div>
+    <div class="nourish-grid">
+      <div class="nourish-img-wrap">
+        <img src="golf-japan.png" alt="Joyful Asian family enjoying golf at a scenic Japan resort overlooking the ocean — active longevity and wellness">
+        <div class="nourish-img-badge">
+          <p>"Every step on the green is a step toward 100."</p>
+          <span>Active longevity • Japan wellness</span>
+        </div>
+      </div>
+      <div class="nourish-points">
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🚶</div>
+          <div class="nourish-point-text">
+            <h4>Walking as Medicine</h4>
+            <p>18 holes = 8–10km of gentle walking in nature. Studies show regular golfers live an average of 5 years longer — the fresh air, movement and greenery are healing.</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🧠</div>
+          <div class="nourish-point-text">
+            <h4>Mindfulness in Motion</h4>
+            <p>Golf requires focus, calm and presence — a moving meditation that reduces cortisol, sharpens the mind and builds emotional resilience across generations.</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">👨‍👩‍👧</div>
+          <div class="nourish-point-text">
+            <h4>Family &amp; Connection</h4>
+            <p>Shared time on the course deepens bonds between generations. For families, golf in Japan offers a meaningful, joyful way to reconnect over wellness and nature.</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">⛩️</div>
+          <div class="nourish-point-text">
+            <h4>Japan's Scenic Courses</h4>
+            <p>Some of life's most precious conversations happen on a golf course. In Japan, surrounded by breathtaking beauty and serene nature — every round becomes a memory your family and closest partners will carry forever.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="resources">
+  <div class="services-header">
+    <div class="section-tag" style="justify-content:center;">Our Pillars of Care</div>
+    <h2 class="section-h2" style="font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:400; margin-bottom:0;">Everything your family needs, in one compassionate space.</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="hands.png" alt="Compassionate hands — caregiver support and care">
+      <div class="service-card-body">
+        <div class="service-card-title">Caregiver Support</div>
+        <p class="service-card-desc">Caregiving is one of the greatest acts of love. We're here to support your heart, ease your mind and guide your steps — every single day of this journey.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="longevity.png" alt="Longevity and brain health">
+      <div class="service-card-body">
+        <div class="service-card-title">Longevity &amp; Brain Health</div>
+        <p class="service-card-desc">Inspired by Japan's secrets of longevity — ikigai, forest bathing and mindful living. We guide you toward a sharper mind, a calmer heart and a longer, more meaningful life.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="fertility.png" alt="Fertility and regenerative wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">Fertility &amp; Regenerative Wellness</div>
+        <p class="service-card-desc">The journey to parenthood is deeply personal. We honour every step — supporting your hormonal health, restoring your vitality and walking beside you with care, hope and regenerative guidance.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="wellness.png" alt="Rejuvenative therapy">
+      <div class="service-card-body">
+        <div class="service-card-title">Rejuvenative Therapy</div>
+        <p class="service-card-desc">Imagine breathing in cedar forests, soaking in mineral waters and finding stillness in the art of doing less. Japan's ancient wellness wisdom, gently brought to you — for a body, mind and soul that truly rests and heals.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="financial.png" alt="Financial wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">Financial Wellness</div>
+        <p class="service-card-desc">From insurance coverage to elder care and medical expenses — we help your family plan for every generation, without the overwhelm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPAN SECTION -->
+<section class="japan" id="contact">
+  <img src="japan.png" alt="Japan cherry blossom pagoda Mt Fuji — medical wellness tourism" class="japan-bg">
+  <div class="japan-overlay">
+    <div class="japan-content">
+      <div class="japan-tag">Our signature offering</div>
+      <h2 class="japan-h2">Japan heals differently. Let us bring its ancient wisdom, <em>regenerative wellness</em> and longevity secrets home — to your family.</h2>
+      <p class="japan-body">For centuries Japan has held the secrets of long, meaningful and memorable lives. We walk beside Asian families — guiding every step of your healing journey, in your language, with patience and heart.</p>
+      <div class="japan-tags">
+        <span class="japan-pill">Regenerative Wellness</span>
+        <span class="japan-pill">Longevity Programs</span>
+        <span class="japan-pill">Golf Wellness Retreats</span>
+        <span class="japan-pill">Fertility Support</span>
+        <span class="japan-pill">Diet, Nutrition &amp; Gut Health</span>
+        <span class="japan-pill">Autism Care &amp; Nutrition</span>
+        <span class="japan-pill">Brain Health &amp; Dementia</span>
+        <span class="japan-pill">Immune Restoration</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIAL CALCULATOR SECTION -->
+<section style="background:#FDF6F0; padding:80px 48px;">
+  <div style="max-width:720px; margin:0 auto; text-align:center;">
+
+    <!-- Eyebrow -->
+    <p style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#993C1D; margin-bottom:0.9rem; font-family:'DM Sans',sans-serif;">Your family's protection picture</p>
+
+    <!-- Heading -->
+    <h2 style="font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:400; color:#4A1B0C; line-height:1.4; max-width:580px; margin:0 auto 0.75rem;">What will your family's health, wealth and coverage really cost — <em style="color:#C17A3A;">across every generation?</em></h2>
+
+    <!-- Subhead -->
+    <p style="font-size:15px; color:#712B13; line-height:1.75; max-width:500px; margin:0 auto 2.5rem; font-family:'DM Sans',sans-serif; font-weight:300;">Most families don't find out until it's too late. This private projector maps your full exposure — clearly, honestly, and with heart.</p>
+
+    <!-- 3 Steps -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; max-width:520px; margin:0 auto 2.5rem;">
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="position:absolute; top:22px; left:calc(50% + 22px); right:calc(-50% + 22px); height:1px; background:#F0997B;"></div>
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">1</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">Medical &amp; care costs</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">Hospitalisation, specialist &amp; long-term elder care</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="position:absolute; top:22px; left:calc(50% + 22px); right:calc(-50% + 22px); height:1px; background:#F0997B;"></div>
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">2</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">Multi-gen planning</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">Children, parents &amp; grandparents planned together</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">3</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">Insurance &amp; coverage</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">Medical insurance · Critical illness · Disability protection · Rehabilitation &amp; recovery support</p>
+      </div>
+
+    </div>
+
+    <!-- Alert banner -->
+    <div style="background:#fff; border:0.5px solid #F0997B; border-radius:10px; padding:0.85rem 1.25rem; max-width:560px; margin:0 auto 2rem; display:flex; align-items:flex-start; gap:12px; text-align:left;">
+      <span style="font-size:20px; flex-shrink:0; margin-top:2px;">⚠️</span>
+      <p style="font-family:'DM Sans',sans-serif; font-size:13px; color:#712B13; line-height:1.6;"><strong style="color:#4A1B0C;">Did you know?</strong> Most people believe they are fully protected — until they are not.<br><em>"The biggest insurance risk is not what you don't buy — but what you think you already have."</em></p>
+    </div>
+
+    <!-- Calculator box -->
+    <div style="background:#fff; border:0.5px solid #F0997B; border-radius:14px; max-width:560px; margin:0 auto 1.5rem; padding:2rem 1.75rem; text-align:left;">
+
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400; color:#4A1B0C; text-align:center; margin-bottom:0.25rem;">What is your number?</h3>
+      <p style="font-size:12px; color:#712B13; font-family:'DM Sans',sans-serif; text-align:center; margin-bottom:1.75rem; font-weight:300;">Find your family's financial protection gap in 3 minutes</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">Your country</label>
+          <select id="cc-country" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option>Malaysia</option>
+            <option>Singapore</option>
+            <option>Indonesia</option>
+            <option>Philippines</option>
+            <option>Hong Kong</option>
+            <option>Other Asia</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">Family size</label>
+          <select id="cc-size" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="2">2 people</option>
+            <option value="3">3 people</option>
+            <option value="4" selected>4 people</option>
+            <option value="5">5+ people</option>
+            <option value="6">Multi-gen (6+)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">Eldest member's age</label>
+          <select id="cc-age" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="40">40s</option>
+            <option value="50" selected>50s</option>
+            <option value="60">60s</option>
+            <option value="70">70s</option>
+            <option value="80">80+</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">Current coverage</label>
+          <select id="cc-cover" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="none">No insurance</option>
+            <option value="basic" selected>Basic medical only</option>
+            <option value="mid">Medical + life</option>
+            <option value="full">Comprehensive plan</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">Any women in the family? (maternity / reproductive health concerns)</label>
+        <select id="cc-women" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+          <option value="no">No / not applicable</option>
+          <option value="yes">Yes — this matters to us</option>
+        </select>
+      </div>
+
+      <button onclick="ccCalc()" style="width:100%; background:#C17A3A; color:#fff; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; padding:13px; border-radius:28px; border:none; cursor:pointer; margin-top:4px; letter-spacing:0.2px;">Calculate my family's protection gap</button>
+
+      <!-- Results -->
+      <div id="cc-result" style="display:none; margin-top:1.5rem; border-top:0.5px solid #F0997B; padding-top:1.5rem;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+          <div style="background:#FDF6F0; border-radius:8px; padding:0.85rem; text-align:center;">
+            <div id="cc-lifetime" style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:#993C1D;"></div>
+            <div style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px; line-height:1.4;">Estimated lifetime healthcare exposure</div>
+          </div>
+          <div style="background:#FDF6F0; border-radius:8px; padding:0.85rem; text-align:center;">
+            <div id="cc-covered" style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:#993C1D;"></div>
+            <div style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px; line-height:1.4;">Estimated coverage from current plan</div>
+          </div>
+        </div>
+        <div style="background:#FFF3EE; border:0.5px solid #F0997B; border-radius:8px; padding:0.85rem 1.1rem; margin-bottom:12px;">
+          <div style="font-size:11px; color:#993C1D; font-family:'DM Sans',sans-serif; font-weight:500; margin-bottom:3px;">Your estimated protection gap</div>
+          <div id="cc-gap" style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:#C17A3A;"></div>
+          <div id="cc-gap-sub" style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px;"></div>
+        </div>
+        <div id="cc-status" style="border-radius:8px; padding:0.7rem 1rem; font-family:'DM Sans',sans-serif; font-size:12px; margin-bottom:12px;"></div>
+        <div id="cc-women-note" style="display:none; background:#FDF6F0; border-radius:8px; padding:0.7rem 1rem; margin-bottom:12px; font-family:'DM Sans',sans-serif; font-size:12px; color:#712B13; line-height:1.6;"></div>
+        <div style="background:#FDF8F3; border-radius:16px; border:0.5px solid rgba(193,122,58,0.25); padding:1.75rem 1.5rem; text-align:center;">
+          <p style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#C17A3A; font-family:'DM Sans',sans-serif; margin-bottom:0.5rem;">A private conversation</p>
+          <h4 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; color:#3D2B1F; line-height:1.4; margin-bottom:0.4rem;">Your family's wellbeing deserves more than a form.</h4>
+          <p style="font-size:12px; color:#7B6B60; font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; margin-bottom:1.25rem;">We work with a small number of families at a time. Every conversation is private, unhurried, and without obligation.</p>
+          <a href="mailto:hello@caregivercompassai.com" id="cc-mailto" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; border:0.5px solid rgba(193,122,58,0.3); border-radius:10px; padding:12px 16px; text-decoration:none; margin-bottom:10px;">
+            <span style="font-family:'DM Sans',sans-serif; font-size:13px; color:#C17A3A; font-weight:500;">hello@caregivercompassai.com</span>
+          </a>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <a href="mailto:hello@caregivercompassai.com?subject=General Enquiry — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI have a question and would love your guidance.%0D%0A%0D%0AThank you." style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; background:#fff; border:0.5px solid rgba(193,122,58,0.25); border-radius:12px; padding:0.9rem 0.85rem; text-decoration:none;">
+              <span style="font-size:16px;">💬</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-size:14px; color:#3D2B1F; line-height:1.3;">General enquiry</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:10px; color:#7B6B60; font-weight:300; line-height:1.4; text-align:left;">A question or simply wanting to know more.</span>
+            </a>
+            <a href="mailto:hello@caregivercompassai.com?subject=Private Consultation — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI would like to request a private consultation for my family.%0D%0A%0D%0AThank you." style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; background:#3D2B1F; border:0.5px solid #3D2B1F; border-radius:12px; padding:0.9rem 0.85rem; text-decoration:none;">
+              <span style="font-size:16px;">🔒</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-size:14px; color:#F2C98A; line-height:1.3;">Private consultation</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:10px; color:rgba(255,255,255,0.5); font-weight:300; line-height:1.4; text-align:left;">At your pace, on your terms.</span>
+            </a>
+          </div>
+          <p style="font-size:10px; color:#9c7a5e; font-family:'DM Sans',sans-serif; font-weight:300; margin-top:1rem;">Private &amp; confidential</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-size:11px; color:#993C1D; font-family:'DM Sans',sans-serif;">Private &amp; confidential</p>
+
+  </div>
+</section>
+
+<script>
+function ccCalc() {
+  var country = document.getElementById('cc-country').value;
+  var size = parseInt(document.getElementById('cc-size').value);
+  var age = parseInt(document.getElementById('cc-age').value);
+  var cover = document.getElementById('cc-cover').value;
+  var women = document.getElementById('cc-women').value;
+
+  var base = (country === 'Singapore' || country === 'Hong Kong') ? 180000 : 120000;
+  var lifetime = base * size;
+  if (age >= 60) lifetime *= 1.35;
+  if (age >= 70) lifetime *= 1.2;
+  lifetime = Math.round(lifetime / 1000) * 1000;
+
+  var pct = {none:0, basic:0.15, mid:0.35, full:0.6}[cover];
+  var covered = Math.round((lifetime * pct) / 1000) * 1000;
+  var gap = lifetime - covered;
+
+  var cur = (country === 'Singapore' || country === 'Hong Kong') ? 'S$' : 'RM';
+  var fmt = function(n){ return cur + (n >= 1000000 ? (n/1000000).toFixed(1)+'M' : (n/1000).toFixed(0)+'K'); };
+
+  document.getElementById('cc-lifetime').textContent = fmt(lifetime);
+  document.getElementById('cc-covered').textContent = fmt(covered);
+  document.getElementById('cc-gap').textContent = fmt(gap);
+
+  var gPct = Math.round((gap/lifetime)*100);
+  document.getElementById('cc-gap-sub').textContent = gPct + '% of your family\'s total healthcare exposure is currently unprotected';
+
+  var s = document.getElementById('cc-status');
+  if (gPct >= 70) { s.style.cssText='background:#fdf0ea;color:#7a2e18;border:0.5px solid #e8a888;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='High exposure — your family has significant unprotected gaps that need urgent attention.'; }
+  else if (gPct >= 40) { s.style.cssText='background:#fdf5e0;color:#7a5200;border:0.5px solid #e8cc90;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='Moderate exposure — there are meaningful gaps, especially as your family ages.'; }
+  else { s.style.cssText='background:#eef4ee;color:#2d5832;border:0.5px solid #b4d4b8;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='Good foundation — but review coverage for elder care and critical illness gaps.'; }
+
+  var wn = document.getElementById('cc-women-note');
+  if (women === 'yes') {
+    wn.style.display = 'block';
+    wn.innerHTML = '<strong style="color:#4A1B0C;">Note on women\'s health coverage:</strong> Most standard policies in Asia do not cover reproductive health treatments. Maternity riders exist but must be added separately. Cross-border options including Japan and international plans may offer broader coverage. We can help you find the right plan.';
+  } else { wn.style.display = 'none'; }
+
+  document.getElementById('cc-result').style.display = 'block';
+  document.getElementById('cc-result').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name" style="margin-top:0;">Caregiver Compass <span>AI</span></div>
+      <p class="footer-desc">Regenerate. Rejuvenate. Reconnect. — Helping Asian families live fully, care deeply and create memories that last — across every generation.</p>
+      <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-size:15px; color:rgba(255,255,255,0.75); text-decoration:none; width:fit-content;">
+          <span style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">▶</span>
+          YouTube
+        </a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:8px; font-size:15px; color:rgba(255,255,255,0.75); text-decoration:none; width:fit-content;">
+          <span style="width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;">in</span>
+          LinkedIn
+        </a>
+        <p style="font-size:13px; color:rgba(255,255,255,0.4); margin:0; padding-left:4px;">小红书 XHS — coming soon</p>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#journey">Our Journey</a></li>
+        <li><a href="javascript:void(0)" onclick="showContactBox()">Contact Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Our Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Caregiver Support</a></li>
+        <li><a href="#">Longevity &amp; Brain Health</a></li>
+        <li><a href="#">Fertility Wellness</a></li>
+        <li><a href="#">Golf Wellness Retreats</a></li>
+        <li><a href="#">Autism Diet &amp; Nutrition</a></li>
+        <li><a href="#">Japan Medical Tourism</a></li>
+        <li><a href="#">Financial Planning</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Connect with Us</div>
+      <ul class="footer-links">
+        <li><a href="mailto:hello@caregivercompassai.com">📧 Email us</a></li>
+        <li><a href="#">▶ YouTube</a></li>
+        <li><a href="#">in LinkedIn</a></li>
+        <li style="color:rgba(255,255,255,0.35); font-size:14px; list-style:none;">小红书 XHS — coming soon</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 CaregiverCompassAI. All rights reserved.</span>
+    <span class="footer-copy">caregivercompassai.com</span>
+  </div>
+</footer>
+
+<!-- CONTACT POPUP -->
+<div id="contact-overlay" onclick="hideContactBox()" style="display:none; position:fixed; inset:0; background:rgba(61,43,31,0.6); z-index:999; backdrop-filter:blur(6px);"></div>
+<div id="contact-box" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1000; background:#FDF8F3; border-radius:20px; border:0.5px solid rgba(193,122,58,0.25); padding:2.5rem 2rem; max-width:440px; width:92%; text-align:center; box-shadow:0 32px 80px rgba(61,43,31,0.18);">
+
+  <button onclick="hideContactBox()" style="position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; color:#7B6B60; cursor:pointer; line-height:1; font-family:sans-serif;">×</button>
+
+  <img src="logo.png" alt="CaregiverCompassAI" style="width:52px; height:52px; object-fit:contain; margin:0 auto 0.5rem; display:block;">
+
+  <p style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#C17A3A; font-family:'DM Sans',sans-serif; margin-bottom:0.6rem;">Get in touch</p>
+
+  <h3 style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:#3D2B1F; line-height:1.4; margin-bottom:0.5rem;">We'd love to hear from you</h3>
+
+  <p style="font-size:13px; color:#7B6B60; font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.75; max-width:320px; margin:0 auto 1.5rem;">Whether you have a question, need guidance, or simply want to connect — we are here for your family.</p>
+
+  <a href="mailto:hello@caregivercompassai.com" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; border:0.5px solid rgba(193,122,58,0.3); border-radius:10px; padding:13px 20px; text-decoration:none; margin-bottom:12px;">
+    <img src="logo.png" alt="" style="width:20px; height:20px; object-fit:contain; flex-shrink:0;">
+    <span style="font-family:'DM Sans',sans-serif; font-size:14px; color:#C17A3A; font-weight:500;">hello@caregivercompassai.com</span>
+  </a>
+
+  <a href="mailto:hello@caregivercompassai.com?subject=Enquiry — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI would like to connect with you.%0D%0A%0D%0AThank you." style="display:block; background:#C17A3A; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; padding:14px; border-radius:28px; text-decoration:none; margin-bottom:1rem; letter-spacing:0.2px;">Send us a message →</a>
+
+  <p style="font-size:11px; color:#9c7a5e; font-family:'DM Sans',sans-serif; font-weight:300;">Private &amp; confidential</p>
+
+</div>
+
+<script>
+function showContactBox() {
+  document.getElementById('contact-overlay').style.display = 'block';
+  document.getElementById('contact-box').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function hideContactBox() {
+  document.getElementById('contact-overlay').style.display = 'none';
+  document.getElementById('contact-box').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') hideContactBox(); });
+</script>
+
+</body>
+</html>

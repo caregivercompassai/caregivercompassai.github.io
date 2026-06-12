@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaregiverCompassAI — 守護照顧者。珍視愛。</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FDF8F3;
+    --warm-white: #FAF6F0;
+    --terracotta: #C17A3A;
+    --terracotta-dark: #9E5F24;
+    --brown: #3D2B1F;
+    --brown-mid: #7B4F2E;
+    --brown-light: #7B6B60;
+    --green: #2D5016;
+    --green-light: #4A7C28;
+    --border: rgba(193,122,58,0.18);
+    --shadow: rgba(61,43,31,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--brown); }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; background: rgba(253,248,243,0.97);
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .lang-switcher { display: flex; align-items: center; gap: 4px; }
+  .lang-btn { font-size: 12px; color: var(--brown-light); text-decoration: none; padding: 4px 8px; border-radius: 12px; letter-spacing: 0.5px; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .lang-btn:hover { color: var(--terracotta); background: rgba(193,122,58,0.08); }
+  .lang-btn.active { color: var(--terracotta); font-weight: 600; }
+  .lang-divider { color: rgba(193,122,58,0.3); font-size: 11px; }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img { height: 72px; width: auto; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.2; }
+  .nav-logo-text span { color: var(--terracotta); }
+  .nav-tagline { font-size: 10px; color: var(--brown-light); letter-spacing: 0.5px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brown); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .lang { font-size: 11px; color: var(--brown-light); cursor: pointer; }
+  .btn-nav { background: var(--terracotta); color: #fff; font-size: 12px; padding: 10px 20px; border-radius: 24px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; letter-spacing: 0.3px; transition: background 0.2s; text-decoration: none; }
+  .btn-nav:hover { background: var(--terracotta-dark); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1fr; min-height: 600px; max-height: 700px; overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 56px; display: flex; flex-direction: column; justify-content: center;
+    background: var(--cream);
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  }
+  .hero-eyebrow-line { width: 40px; height: 1px; background: var(--terracotta); }
+  .hero-eyebrow-text { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); }
+  .hero-h1 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 400; line-height: 1.15; color: var(--brown); margin-bottom: 20px; }
+  .hero-h1 em { color: var(--terracotta); font-style: italic; }
+  .hero-sub { font-size: 17px; color: var(--brown-light); line-height: 1.75; margin-bottom: 36px; max-width: 420px; font-weight: 300; }
+  .hero-sub strong { color: var(--brown); font-weight: 500; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-solid { background: var(--terracotta); color: #fff; font-size: 15px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-solid:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--brown); font-size: 15px; padding: 13px 28px; border-radius: 28px; border: 1.5px solid var(--brown); cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { width: 100%; height: 100%; max-height: 700px; object-fit: cover; object-position: center top; }
+
+  /* FEATURES BAR */
+  .features-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: #fff;
+  }
+  .feat {
+    padding: 28px 24px; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .feat:last-child { border-right: none; background: var(--warm-white); }
+  .feat-icon { font-size: 22px; margin-bottom: 4px; }
+  .feat-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; color: var(--brown); line-height: 1.3; }
+  .feat-desc { font-size: 14px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+  .feat-quote { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown-mid); line-height: 1.5; }
+
+  /* ABOUT SECTION */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-height: 380px; overflow: hidden; }
+  .about-img { overflow: hidden; }
+  .about-img img { width: 100%; height: 380px; object-fit: cover; object-position: center; }
+  .about-content { padding: 48px 56px; background: var(--warm-white); display: flex; flex-direction: column; justify-content: center; }
+  .section-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .section-tag::before { content: ''; width: 30px; height: 1px; background: var(--terracotta); }
+  .section-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); line-height: 1.3; margin-bottom: 20px; }
+  .section-h2 em { color: var(--terracotta); font-style: italic; }
+  .section-body { font-size: 16px; color: var(--brown-light); line-height: 1.85; margin-bottom: 28px; font-weight: 300; }
+  .btn-link { font-size: 13px; color: var(--terracotta); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 500; letter-spacing: 0.3px; transition: gap 0.2s; }
+  .btn-link:hover { gap: 10px; }
+
+  /* NOURISH / GOLF SECTION */
+  .nourish { background: var(--cream); }
+  .nourish-inner { max-width: 1200px; margin: 0 auto; padding: 60px 48px; }
+  .nourish-header { text-align: center; margin-bottom: 56px; }
+  .nourish-header .section-tag { justify-content: center; }
+  .nourish-header .section-tag::before { display: none; }
+  .nourish-h2 { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; color: var(--brown); line-height: 1.25; margin-bottom: 16px; }
+  .nourish-h2 em { color: var(--terracotta); font-style: italic; }
+  .nourish-sub { font-size: 17px; color: var(--brown-light); max-width: 580px; margin: 0 auto; line-height: 1.8; font-weight: 300; }
+  .nourish-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: start; }
+  .nourish-img-wrap { position: relative; border-radius: 16px; overflow: hidden; }
+  .nourish-img-wrap img { width: 100%; height: 560px; object-fit: cover; object-position: center; }
+  .nourish-img-badge {
+    position: absolute; bottom: 24px; left: 24px;
+    background: rgba(253,248,243,0.96); backdrop-filter: blur(8px);
+    padding: 14px 20px; border-radius: 12px; border: 1px solid var(--border);
+  }
+  .nourish-img-badge p { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--brown); }
+  .nourish-img-badge span { font-size: 11px; color: var(--terracotta); letter-spacing: 0.5px; }
+  .nourish-points { display: flex; flex-direction: column; gap: 24px; }
+  .nourish-point { display: flex; gap: 18px; align-items: flex-start; }
+  .nourish-point-icon { width: 44px; height: 44px; min-width: 44px; background: rgba(193,122,58,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .nourish-point-text h4 { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; color: var(--brown); margin-bottom: 4px; }
+  .nourish-point-text p { font-size: 15px; color: var(--brown-light); line-height: 1.65; font-weight: 300; }
+  .nourish-cta { margin-top: 32px; }
+
+  /* SERVICES CARDS */
+  .services { background: #fff; padding: 56px 48px; }
+  .services-header { text-align: center; margin-bottom: 48px; }
+  .services-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; }
+  .service-card { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s; }
+  .service-card:hover { transform: translateY(-6px); }
+  .service-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .service-card-body { padding: 18px 16px 20px; background: var(--warm-white); }
+  .service-card-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--brown); margin-bottom: 6px; }
+  .service-card-desc { font-size: 13px; color: var(--brown-light); line-height: 1.6; font-weight: 300; }
+
+  /* JAPAN SECTION */
+  .japan { position: relative; overflow: hidden; }
+  .japan-bg { width: 100%; height: 600px; object-fit: cover; object-position: center; display: block; }
+  .japan-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(61,43,31,0.82) 0%, rgba(61,43,31,0.4) 55%, rgba(61,43,31,0.1) 100%);
+    display: flex; align-items: center;
+  }
+  .japan-content { padding: 40px 64px; max-width: 580px; }
+  .japan-tag { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .japan-tag::before { content: ''; width: 30px; height: 1px; background: rgba(255,255,255,0.5); }
+  .japan-h2 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+  .japan-h2 em { color: #F2C98A; font-style: italic; }
+  .japan-body { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.75; margin-bottom: 18px; font-weight: 300; }
+  .japan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .japan-pill { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); letter-spacing: 0.3px; }
+  .btn-japan { background: var(--terracotta); color: #fff; font-size: 13px; padding: 13px 28px; border-radius: 28px; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+  .btn-japan:hover { background: var(--terracotta-dark); }
+  .japan-stats { display: flex; gap: 32px; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.2); }
+  .japan-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: #F2C98A; font-weight: 400; }
+  .japan-stat-label { font-size: 13px; color: rgba(255,255,255,0.65); margin-top: 2px; line-height: 1.4; }
+
+  /* EMAIL SECTION */
+  .email-section { background: var(--warm-white); padding: 80px 48px; }
+  .email-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+  .email-h2 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 400; color: var(--brown); margin-bottom: 14px; }
+  .email-sub { font-size: 16px; color: var(--brown-light); line-height: 1.75; margin-bottom: 32px; font-weight: 300; }
+  .email-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto 16px; }
+  .email-form input { flex: 1; padding: 13px 20px; border: 1.5px solid var(--border); border-radius: 28px; font-family: 'DM Sans', sans-serif; font-size: 13px; background: #fff; color: var(--brown); outline: none; transition: border-color 0.2s; }
+  .email-form input:focus { border-color: var(--terracotta); }
+  .email-note { font-size: 11px; color: var(--brown-light); display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+  /* FOOTER */
+  footer { background: var(--brown); color: rgba(255,255,255,0.75); padding: 56px 48px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; align-items: start; }
+  .footer-brand img { height: 60px; filter: none; margin-bottom: 14px; display: block; border-radius: 8px; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #fff; margin-bottom: 12px; }
+  .footer-brand-name span { color: #F2C98A; }
+  .footer-desc { font-size: 15px; line-height: 1.75; font-weight: 300; max-width: 260px; }
+  .footer-heading { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: #F2C98A; margin-bottom: 18px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-size: 15px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: #fff; }
+  .footer-social { display: flex; gap: 10px; margin-top: 20px; }
+  .footer-social a { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: rgba(255,255,255,0.65); text-decoration: none; transition: all 0.2s; }
+  .footer-social a:hover { border-color: #F2C98A; color: #F2C98A; }
+  .footer-brand { display: flex; flex-direction: column; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 300px; }
+    .hero-left { padding: 48px 24px; }
+    .hero-h1 { font-size: 36px; }
+    .features-bar { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .nourish-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .japan-content { padding: 0 32px; }
+    .japan-h2 { font-size: 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+
+
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="CaregiverCompassAI Logo">
+    <div>
+      <div class="nav-logo-text">Caregiver Compass <span>AI</span></div>
+      <div class="nav-tagline">再生。煥新。重連。</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">首頁</a></li>
+    <li><a href="#about">關於我們</a></li>
+    <li><a href="#journey">旅程</a></li>
+    <li><a href="javascript:void(0)" onclick="showContactBox()">聯絡我們</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <a href="index.html" class="lang-btn">EN</a>
+      <span class="lang-divider">|</span>
+      <a href="index-bm.html" class="lang-btn">BM</a>
+      <span class="lang-divider">|</span>
+      <a href="index-zh.html" class="lang-btn active">中文</a>
+      <span class="lang-divider">|</span>
+      <a href="index-jp.html" class="lang-btn">JP</a>
+    </div>
+
+  </div>
+  </nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">以愛關懷。滋養生命。</span>
+    </div>
+    <h1 class="hero-h1">守護照顧者。<br>珍視愛。<br>共建<em>更美好的明天。</em></h1>
+    <p class="hero-sub">
+      引導亞洲家庭健康生活、優雅老齡，留下永恆的回憶——跨越每一個世代。
+    </p>
+
+  </div>
+  <div class="hero-right">
+    <img src="hero-family.png" alt="Three generations of Asian family — grandmother, mother and daughter sharing a joyful moment">
+  </div>
+</section>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="feat">
+    <div class="feat-icon">🤲</div>
+    <div class="feat-title">照護與長壽</div>
+    <p class="feat-desc">為付出一切的照顧者，以及值得最好的長輩——為共同應對老齡化、失智症和長者照護的家庭提供富有同情心的指引。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🌸</div>
+    <div class="feat-title">生育與再生健康</div>
+    <p class="feat-desc">壓力。荷爾蒙。生育力。它們之間的關聯比你想象的更深。我們引導你從荷爾蒙健康走向生殖健康——充滿關愛與清晰。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">⛩️</div>
+    <div class="feat-title">日本醫療旅遊</div>
+    <p class="feat-desc">日本的醫療保健和款待是世界上最好的之一。我們以您的語言，耐心、溫暖、用心地引導您的家人完成健康檢查、專科護理和健康計劃。</p>
+  </div>
+  <div class="feat">
+    <div class="feat-icon">🏥</div>
+    <div class="feat-title">馬來西亞醫療與健康</div>
+    <p class="feat-desc">醫療與健康指引——以溫暖、關愛和文化理解，將您與馬來西亞合適的專科醫生、醫院和療養地連接起來。</p>
+  </div>
+</div>
+
+<!-- ABOUT / CARING HANDS -->
+<section class="about" id="about">
+  <div class="about-img">
+    <img src="about-tea.png" alt="Warm cozy tea set — a moment of rest and comfort for caregivers">
+  </div>
+  <div class="about-content">
+    <div class="section-tag">歡迎來到 Caregiver Compass AI</div>
+    <h2 class="section-h2">照護與愛心、文化相遇，共創<em>更光明的明天。</em></h2>
+    <p class="section-body">我們與家人共同創造的回憶無法被買賣、替代或奪走。我們在這裡幫助您的家人充實生活、深情關愛並珍視每一個寶貴時刻——跨越每一個世代。</p>
+
+  </div>
+</section>
+
+<!-- NOURISH / GOLF WELLNESS SECTION -->
+<section class="nourish" id="journey">
+  <div class="nourish-inner">
+    <div class="nourish-header">
+      <div class="section-tag">滋養身體。煥新心靈。提升生命。</div>
+      <h2 class="nourish-h2">高爾夫作為<em>長壽實踐</em>——<br>運動、自然與正念。</h2>
+      <p class="nourish-sub">從馬來西亞鬱鬱蔥蔥的高原球道到日本令人嘆為觀止的海景球場——高爾夫不僅僅是一項運動。它是穿越自然的步行冥想，恢復身體、平靜心靈並為您的生命增添歲月。</p>
+    </div>
+    <div class="nourish-grid">
+      <div class="nourish-img-wrap">
+        <img src="golf-japan.png" alt="Joyful Asian family enjoying golf at a scenic Japan resort overlooking the ocean — active longevity and wellness">
+        <div class="nourish-img-badge">
+          <p>"綠地上的每一步，都是邁向百歲的一步。"</p>
+          <span>積極長壽 • 日本健康</span>
+        </div>
+      </div>
+      <div class="nourish-points">
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🚶</div>
+          <div class="nourish-point-text">
+            <h4>步行即良藥</h4>
+            <p>18洞 = 在自然中輕鬆步行8–10公里。研究顯示，定期打高爾夫球的人平均壽命長5年——新鮮空氣、運動和綠意是治愈的良方。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">🧠</div>
+          <div class="nourish-point-text">
+            <h4>動中正念</h4>
+            <p>高爾夫需要專注、平靜和臨在——一種降低皮質醇、增強思維並培養跨代情緒韌性的動態冥想。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">👨‍👩‍👧</div>
+          <div class="nourish-point-text">
+            <h4>家庭與聯繫</h4>
+            <p>在球場上共享的時光加深了代際之間的紐帶。對家庭而言，在日本打高爾夫是通過健康和自然重新連接的有意義且快樂的方式。</p>
+          </div>
+        </div>
+        <div class="nourish-point">
+          <div class="nourish-point-icon">⛩️</div>
+          <div class="nourish-point-text">
+            <h4>日本風景優美的球場</h4>
+            <p>人生中最珍貴的對話往往發生在高爾夫球場上。在日本，被令人嘆為觀止的美景和寧靜自然環繞——每一局都會成為您的家人和最親密的夥伴永遠珍藏的回憶。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="resources">
+  <div class="services-header">
+    <div class="section-tag" style="justify-content:center;">我們的關護支柱</div>
+    <h2 class="section-h2" style="font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:400; margin-bottom:0;">您的家庭所需的一切，盡在一個充滿關愛的空間。</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="hands.png" alt="Compassionate hands — caregiver support and care">
+      <div class="service-card-body">
+        <div class="service-card-title">照顧者支援</div>
+        <p class="service-card-desc">照護是最偉大的愛的行為之一。我們在這裡支持您的內心、減輕您的憂慮並引導您的每一步——在這段旅程的每一天。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="longevity.png" alt="Longevity and brain health">
+      <div class="service-card-body">
+        <div class="service-card-title">長壽與腦部健康</div>
+        <p class="service-card-desc">受日本長壽秘訣啟發——生命意義、森林浴和正念生活。我們引導您走向更敏銳的思維、更平靜的心靈和更長久、更有意義的生活。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="fertility.png" alt="Fertility and regenerative wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">生育與再生健康</div>
+        <p class="service-card-desc">走向為人父母的旅程是非常個人的。我們尊重每一步——支持您的荷爾蒙健康、恢復您的活力，並以關愛、希望和再生的指引陪伴您。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="wellness.png" alt="Rejuvenative therapy">
+      <div class="service-card-body">
+        <div class="service-card-title">煥活療法</div>
+        <p class="service-card-desc">想象在雪松林中呼吸，浸泡在礦泉水中，在「少即是多」的藝術中找到寧靜。日本古老的健康智慧，輕柔地帶給您——讓身體、心靈和靈魂真正得到休息與治愈。</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="financial.png" alt="Financial wellness">
+      <div class="service-card-body">
+        <div class="service-card-title">財務健康</div>
+        <p class="service-card-desc">從保險保障到長者護理和醫療費用——我們幫助您的家庭為每一個世代做規劃，無需感到不知所措。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPAN SECTION -->
+<section class="japan" id="contact">
+  <img src="japan.png" alt="Japan cherry blossom pagoda Mt Fuji — medical wellness tourism" class="japan-bg">
+  <div class="japan-overlay">
+    <div class="japan-content">
+      <div class="japan-tag">我們的標誌性服務</div>
+      <h2 class="japan-h2">日本的療愈方式與眾不同。讓我們將其古老智慧、<em>再生健康</em>和長壽秘訣帶回家——帶給您的家人。</h2>
+      <p class="japan-body">幾個世紀以來，日本一直保存著長壽、有意義和難忘生活的秘訣。我們陪伴在亞洲家庭身旁——以您的語言、耐心和真心，引導您療愈旅程的每一步。</p>
+      <div class="japan-tags">
+        <span class="japan-pill">再生健康</span>
+        <span class="japan-pill">長壽計劃</span>
+        <span class="japan-pill">高爾夫健康度假</span>
+        <span class="japan-pill">生育支援</span>
+        <span class="japan-pill">飲食、營養與腸道健康</span>
+        <span class="japan-pill">自閉症護理與營養</span>
+        <span class="japan-pill">腦部健康與失智症</span>
+        <span class="japan-pill">免疫恢復</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINANCIAL CALCULATOR SECTION -->
+<section style="background:#FDF6F0; padding:80px 48px;">
+  <div style="max-width:720px; margin:0 auto; text-align:center;">
+
+    <!-- Eyebrow -->
+    <p style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#993C1D; margin-bottom:0.9rem; font-family:'DM Sans',sans-serif;">您家庭的保障全貌</p>
+
+    <!-- Heading -->
+    <h2 style="font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:400; color:#4A1B0C; line-height:1.4; max-width:580px; margin:0 auto 0.75rem;">您家庭的健康、財富和保障究竟需要多少——<em style="color:#C17A3A;">跨越每一個世代？</em></h2>
+
+    <!-- Subhead -->
+    <p style="font-size:15px; color:#712B13; line-height:1.75; max-width:500px; margin:0 auto 2.5rem; font-family:'DM Sans',sans-serif; font-weight:300;">大多數家庭在為時已晚之前才發現。這個私人預測工具清晰、誠實、用心地為您呈現全面的風險敞口。</p>
+
+    <!-- 3 Steps -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; max-width:520px; margin:0 auto 2.5rem;">
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="position:absolute; top:22px; left:calc(50% + 22px); right:calc(-50% + 22px); height:1px; background:#F0997B;"></div>
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">1</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">醫療與護理費用</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">住院、專科及長期長者護理</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="position:absolute; top:22px; left:calc(50% + 22px); right:calc(-50% + 22px); height:1px; background:#F0997B;"></div>
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">2</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">多代規劃</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">子女、父母與祖父母共同規劃</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; position:relative; padding:0 10px;">
+        <div style="width:44px; height:44px; border-radius:50%; background:#C17A3A; color:#fff; font-size:17px; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:1;">3</div>
+        <p style="font-size:13px; font-weight:500; color:#4A1B0C; font-family:'DM Sans',sans-serif; margin-bottom:5px;">保險與保障</p>
+        <p style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; line-height:1.5;">醫療保險 · 危重病 · 傷殘保障 · 康復與復原支援</p>
+      </div>
+
+    </div>
+
+    <!-- Alert banner -->
+    <div style="background:#fff; border:0.5px solid #F0997B; border-radius:10px; padding:0.85rem 1.25rem; max-width:560px; margin:0 auto 2rem; display:flex; align-items:flex-start; gap:12px; text-align:left;">
+      <span style="font-size:20px; flex-shrink:0; margin-top:2px;">⚠️</span>
+      <p style="font-family:'DM Sans',sans-serif; font-size:13px; color:#712B13; line-height:1.6;"><strong style="color:#4A1B0C;">Did you know?</strong> Most people believe they are fully protected — until they are not.<br><em>"The biggest insurance risk is not what you don't buy — but what you think you already have."</em></p>
+    </div>
+
+    <!-- Calculator box -->
+    <div style="background:#fff; border:0.5px solid #F0997B; border-radius:14px; max-width:560px; margin:0 auto 1.5rem; padding:2rem 1.75rem; text-align:left;">
+
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400; color:#4A1B0C; text-align:center; margin-bottom:0.25rem;">您的數字是多少？</h3>
+      <p style="font-size:12px; color:#712B13; font-family:'DM Sans',sans-serif; text-align:center; margin-bottom:1.75rem; font-weight:300;">3分鐘找出您家庭的財務保障缺口</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">您的國家</label>
+          <select id="cc-country" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option>Malaysia</option>
+            <option>Singapore</option>
+            <option>Indonesia</option>
+            <option>Philippines</option>
+            <option>Hong Kong</option>
+            <option>Other Asia</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">家庭規模</label>
+          <select id="cc-size" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="2">2 people</option>
+            <option value="3">3 people</option>
+            <option value="4" selected>4 people</option>
+            <option value="5">5+ people</option>
+            <option value="6">Multi-gen (6+)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">最年長成員的年齡</label>
+          <select id="cc-age" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="40">40s</option>
+            <option value="50" selected>50s</option>
+            <option value="60">60s</option>
+            <option value="70">70s</option>
+            <option value="80">80+</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">目前保障</label>
+          <select id="cc-cover" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+            <option value="none">無保險</option>
+            <option value="basic" selected>僅基本醫療</option>
+            <option value="mid">醫療 + 人壽</option>
+            <option value="full">綜合計劃</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:11px; color:#712B13; font-family:'DM Sans',sans-serif; display:block; margin-bottom:5px;">家中有女性嗎？（生育/生殖健康問題）</label>
+        <select id="cc-women" style="width:100%; padding:9px 12px; border:0.5px solid #F0997B; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:13px; color:#4A1B0C; background:#FDF6F0;">
+          <option value="no">否 / 不適用</option>
+          <option value="yes">是——這對我們很重要</option>
+        </select>
+      </div>
+
+      <button onclick="ccCalc()" style="width:100%; background:#C17A3A; color:#fff; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:500; padding:13px; border-radius:28px; border:none; cursor:pointer; margin-top:4px; letter-spacing:0.2px;">計算我家庭的保障缺口</button>
+
+      <!-- Results -->
+      <div id="cc-result" style="display:none; margin-top:1.5rem; border-top:0.5px solid #F0997B; padding-top:1.5rem;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+          <div style="background:#FDF6F0; border-radius:8px; padding:0.85rem; text-align:center;">
+            <div id="cc-lifetime" style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:#993C1D;"></div>
+            <div style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px; line-height:1.4;">預計終身醫療費用敞口</div>
+          </div>
+          <div style="background:#FDF6F0; border-radius:8px; padding:0.85rem; text-align:center;">
+            <div id="cc-covered" style="font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:#993C1D;"></div>
+            <div style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px; line-height:1.4;">目前計劃的預計保障</div>
+          </div>
+        </div>
+        <div style="background:#FFF3EE; border:0.5px solid #F0997B; border-radius:8px; padding:0.85rem 1.1rem; margin-bottom:12px;">
+          <div style="font-size:11px; color:#993C1D; font-family:'DM Sans',sans-serif; font-weight:500; margin-bottom:3px;">您的預計保障缺口</div>
+          <div id="cc-gap" style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:#C17A3A;"></div>
+          <div id="cc-gap-sub" style="font-size:10px; color:#712B13; font-family:'DM Sans',sans-serif; margin-top:3px;"></div>
+        </div>
+        <div id="cc-status" style="border-radius:8px; padding:0.7rem 1rem; font-family:'DM Sans',sans-serif; font-size:12px; margin-bottom:12px;"></div>
+        <div id="cc-women-note" style="display:none; background:#FDF6F0; border-radius:8px; padding:0.7rem 1rem; margin-bottom:12px; font-family:'DM Sans',sans-serif; font-size:12px; color:#712B13; line-height:1.6;"></div>
+        <div style="background:#FDF8F3; border-radius:16px; border:0.5px solid rgba(193,122,58,0.25); padding:1.75rem 1.5rem; text-align:center;">
+          <p style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#C17A3A; font-family:'DM Sans',sans-serif; margin-bottom:0.5rem;">私人對話</p>
+          <h4 style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; color:#3D2B1F; line-height:1.4; margin-bottom:0.4rem;">您家庭的健康值得不僅僅是一張表格。</h4>
+          <p style="font-size:12px; color:#7B6B60; font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; margin-bottom:1.25rem;">我們每次只與少數家庭合作。每次對話都是私密的、從容不迫的，且沒有任何義務。</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <a href="mailto:advisory@caregivercompassai.com?subject=General Enquiry — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI have a question and would love your guidance.%0D%0A%0D%0AThank you." style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; background:#fff; border:0.5px solid rgba(193,122,58,0.25); border-radius:12px; padding:0.9rem 0.85rem; text-decoration:none;">
+              <span style="font-size:16px;">💬</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-size:14px; color:#3D2B1F; line-height:1.3;">一般查詢</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:10px; color:#7B6B60; font-weight:300; line-height:1.4; text-align:left;">有問題或只是想了解更多。</span>
+              <div style="width:100%; height:0.5px; background:rgba(193,122,58,0.2); margin:3px 0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:9px; color:#C17A3A; font-weight:500; word-break:break-all; text-align:left;">advisory@caregivercompassai.com</span>
+            </a>
+            <a href="mailto:private@caregivercompassai.com?subject=Request a Private Introduction — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI would like to request a private introduction.%0D%0A%0D%0AThank you." style="display:flex; flex-direction:column; align-items:flex-start; gap:6px; background:#3D2B1F; border:0.5px solid #3D2B1F; border-radius:12px; padding:0.9rem 0.85rem; text-decoration:none;">
+              <span style="font-size:16px;">🔒</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-size:14px; color:#F2C98A; line-height:1.3;">申請私人介紹</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:10px; color:rgba(255,255,255,0.5); font-weight:300; line-height:1.4; text-align:left;">按您的步伐，依您的條件。</span>
+              <div style="width:100%; height:0.5px; background:rgba(255,255,255,0.1); margin:3px 0;"></div>
+              <span style="font-family:'DM Sans',sans-serif; font-size:9px; color:rgba(242,201,138,0.75); font-weight:500; word-break:break-all; text-align:left;">private@caregivercompassai.com</span>
+            </a>
+          </div>
+          <p style="font-size:10px; color:#9c7a5e; font-family:'DM Sans',sans-serif; font-weight:300; margin-top:1rem;">私密且保密</p>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="font-size:11px; color:#993C1D; font-family:'DM Sans',sans-serif;">私密且保密</p>
+
+  </div>
+</section>
+
+<script>
+function ccCalc() {
+  var country = document.getElementById('cc-country').value;
+  var size = parseInt(document.getElementById('cc-size').value);
+  var age = parseInt(document.getElementById('cc-age').value);
+  var cover = document.getElementById('cc-cover').value;
+  var women = document.getElementById('cc-women').value;
+
+  var base = (country === 'Singapore' || country === 'Hong Kong') ? 180000 : 120000;
+  var lifetime = base * size;
+  if (age >= 60) lifetime *= 1.35;
+  if (age >= 70) lifetime *= 1.2;
+  lifetime = Math.round(lifetime / 1000) * 1000;
+
+  var pct = {none:0, basic:0.15, mid:0.35, full:0.6}[cover];
+  var covered = Math.round((lifetime * pct) / 1000) * 1000;
+  var gap = lifetime - covered;
+
+  var cur = (country === 'Singapore' || country === 'Hong Kong') ? 'S$' : 'RM';
+  var fmt = function(n){ return cur + (n >= 1000000 ? (n/1000000).toFixed(1)+'M' : (n/1000).toFixed(0)+'K'); };
+
+  document.getElementById('cc-lifetime').textContent = fmt(lifetime);
+  document.getElementById('cc-covered').textContent = fmt(covered);
+  document.getElementById('cc-gap').textContent = fmt(gap);
+
+  var gPct = Math.round((gap/lifetime)*100);
+  document.getElementById('cc-gap-sub').textContent = gPct + '% 的家庭醫療費用目前未受保障';
+
+  var s = document.getElementById('cc-status');
+  if (gPct >= 70) { s.style.cssText='background:#fdf0ea;color:#7a2e18;border:0.5px solid #e8a888;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='高風險敞口——您的家庭存在重大未受保障的缺口，需要緊急關注。'; }
+  else if (gPct >= 40) { s.style.cssText='background:#fdf5e0;color:#7a5200;border:0.5px solid #e8cc90;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='中度風險敞口——存在有意義的缺口，尤其是隨著家庭成員年齡增長。'; }
+  else { s.style.cssText='background:#eef4ee;color:#2d5832;border:0.5px solid #b4d4b8;border-radius:8px;padding:0.7rem 1rem;font-family:DM Sans,sans-serif;font-size:12px;margin-bottom:12px;'; s.textContent='良好基礎——但請審查長者護理和危重病保障的缺口。'; }
+
+  var wn = document.getElementById('cc-women-note');
+  if (women === 'yes') {
+    wn.style.display = 'block';
+    wn.innerHTML = '<strong style="color:#4A1B0C;">女性健康保障說明：</strong>亞洲大多數標準保單不涵蓋生殖健康治療。生育附加險存在，但需單獨添加。包括日本和國際計劃在內的跨境選項可能提供更廣泛的保障。我們可以幫助您找到合適的計劃。';
+  } else { wn.style.display = 'none'; }
+
+  document.getElementById('cc-result').style.display = 'block';
+  document.getElementById('cc-result').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid" style="grid-template-columns:1.4fr 1fr 1fr 1fr;">
+    <div class="footer-brand">
+      <div class="footer-brand-name" style="margin-top:0;">Caregiver Compass <span>AI</span></div>
+      <p class="footer-desc">再生。煥新。重連。 — Helping Asian families live fully, care deeply and create memories that last — across every generation.</p>
+    </div>
+    <div>
+      <div class="footer-heading">快速連結</div>
+      <ul class="footer-links">
+        <li><a href="#home">首頁</a></li>
+        <li><a href="#about">關於我們</a></li>
+        <li><a href="#journey">我們的旅程</a></li>
+        <li><a href="javascript:void(0)" onclick="showContactBox()">聯絡我們</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">我們的服務</div>
+      <ul class="footer-links">
+        <li><a href="#">照顧者支援</a></li>
+        <li><a href="#">長壽與腦部健康</a></li>
+        <li><a href="#">生育健康</a></li>
+        <li><a href="#">高爾夫健康度假</a></li>
+        <li><a href="#">自閉症飲食與營養</a></li>
+        <li><a href="#">日本醫療旅遊</a></li>
+        <li><a href="#">財務規劃</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">與我們聯繫</div>
+      <div style="display:flex; flex-direction:column; gap:12px; margin-top:4px;">
+        <a href="https://www.youtube.com/@caregivercompassai" target="_blank" style="display:inline-flex; align-items:center; gap:10px; font-size:14px; color:rgba(255,255,255,0.65); text-decoration:none;">
+          <span style="width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">▶</span> YouTube
+        </a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:10px; font-size:14px; color:rgba(255,255,255,0.65); text-decoration:none;">
+          <span style="width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">in</span> LinkedIn
+        </a>
+        <p style="font-size:12px; color:rgba(255,255,255,0.25); margin:0;">小红书 XHS<br>coming soon</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 CaregiverCompassAI. 版權所有。</span>
+    <span class="footer-copy">caregivercompassai.com</span>
+  </div>
+</footer>
+
+<!-- CONTACT POPUP -->
+<div id="contact-overlay" onclick="hideContactBox()" style="display:none; position:fixed; inset:0; background:rgba(61,43,31,0.6); z-index:999; backdrop-filter:blur(6px);"></div>
+<div id="contact-box" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1000; background:#FDF8F3; border-radius:20px; border:0.5px solid rgba(193,122,58,0.25); padding:2.5rem 2rem; max-width:440px; width:92%; text-align:center; box-shadow:0 32px 80px rgba(61,43,31,0.18);">
+
+  <button onclick="hideContactBox()" style="position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; color:#7B6B60; cursor:pointer; line-height:1; font-family:sans-serif;">×</button>
+
+  <img src="logo.png" alt="CaregiverCompassAI" style="width:52px; height:52px; object-fit:contain; margin:0 auto 0.5rem; display:block;">
+
+  <p style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#C17A3A; font-family:'DM Sans',sans-serif; margin-bottom:0.6rem;">聯絡我們</p>
+
+  <h3 style="font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:400; color:#3D2B1F; line-height:1.4; margin-bottom:0.5rem;">我們很樂意聆聽您的聲音</h3>
+
+  <p style="font-size:13px; color:#7B6B60; font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.75; max-width:320px; margin:0 auto 1.5rem;">無論您有任何問題、需要指引，或只是想聯繫——我們在這裡為您的家庭服務。</p>
+
+  <a href="mailto:hello@caregivercompassai.com" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; border:0.5px solid rgba(193,122,58,0.3); border-radius:10px; padding:13px 20px; text-decoration:none; margin-bottom:12px;">
+    <img src="logo.png" alt="" style="width:20px; height:20px; object-fit:contain; flex-shrink:0;">
+    <span style="font-family:'DM Sans',sans-serif; font-size:14px; color:#C17A3A; font-weight:500;">hello@caregivercompassai.com</span>
+  </a>
+
+  <a href="mailto:private@caregivercompassai.com?subject=Private Consultation — CaregiverCompassAI&body=Dear CaregiverCompassAI team,%0D%0A%0D%0AI would like to request a private consultation.%0D%0A%0D%0AThank you." style="display:block; background:#C17A3A; color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; padding:14px; border-radius:28px; text-decoration:none; margin-bottom:1rem; letter-spacing:0.2px;">傳送訊息給我們 →</a>
+
+  <p style="font-size:11px; color:#9c7a5e; font-family:'DM Sans',sans-serif; font-weight:300;">私密且保密</p>
+
+</div>
+
+<script>
+function showContactBox() {
+  document.getElementById('contact-overlay').style.display = 'block';
+  document.getElementById('contact-box').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function hideContactBox() {
+  document.getElementById('contact-overlay').style.display = 'none';
+  document.getElementById('contact-box').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') hideContactBox(); });
+</script>
+
+</body>
+</html>
